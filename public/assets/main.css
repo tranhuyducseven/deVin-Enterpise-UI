@@ -1,21 +1,58 @@
-#homepage p {
-  line-height: 1.5em;
+.github-fork-ribbon.right-bottom:before {
+  background-color: #666;
 }
 
-#homepage .homepage-header {
-  font-size: 1.5em;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+.ui.statistic.block_number > .value {
+  font-size: 2.4rem !important;
+  line-height: 4rem !important;
 }
 
-#homepage .homepage-content {
-  font-size: 1.2em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  line-height: 1.5em;
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Oswald, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+  overflow: overlay;
 }
 
-#homepage .homepage-list {
-  font-size: 1.08em;
-  line-height: 1.5em;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.blink {
+  animation: fade 4000ms infinite;
+  -webkit-animation: fade 4000ms infinite;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.1);
+  background-color: transparent;
+  border-radius: 10px;
+  margin-top: 0px;
+  margin-left: 4px;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #fcd535;
+  border: 1px solid white;
 }

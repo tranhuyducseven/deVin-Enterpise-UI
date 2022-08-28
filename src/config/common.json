@@ -1,5 +1,5 @@
 {
-  "APP_NAME": "substrate-supply-chain",
+  "APP_NAME": "de-vin-enterprise",
   "DEVELOPMENT_KEYRING": true,
   "CUSTOM_TYPES": {
     "Address": "AccountId",

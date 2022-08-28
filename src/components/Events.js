@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Feed, Button, Card } from 'semantic-ui-react';
 
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 
 // Events to be filtered from feed
 const FILTERED_EVENTS = [
@@ -10,7 +10,7 @@ const FILTERED_EVENTS = [
 ];
 
 function Main (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const [eventFeed, setEventFeed] = useState([]);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ function Main (props) {
 }
 
 export default function Events (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   return api.query && api.query.system && api.query.system.events ? (
     <Main {...props} />
   ) : null;
