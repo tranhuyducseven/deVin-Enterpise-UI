@@ -1,80 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Link } from "react-router-dom";
 
-import {
-  Menu,
-  Button,
-  Dropdown,
-  Container,
-  Icon,
-  Image,
-  Label,
-} from 'semantic-ui-react'
+import { Button, Container, Dropdown, Icon, Image, Label, Menu } from "semantic-ui-react";
 
-import { useSubstrate, useSubstrateState } from '../substrate-lib'
-import CreateButton from './CreateBtn'
+import { useSubstrate, useSubstrateState } from "../substrate-lib";
+import CreateButton from "./CreateBtn";
 
 const CHROME_EXT_URL =
-  'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd'
-const FIREFOX_ADDON_URL =
-  'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/'
+  "https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd";
+const FIREFOX_ADDON_URL = "https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/";
 
-const acctAddr = acct => (acct ? acct.address : '')
+const acctAddr = (acct) => (acct ? acct.address : "");
 
 function Main(props) {
   const {
     setCurrentAccount,
     state: { keyring, currentAccount },
-  } = useSubstrate()
+  } = useSubstrate();
 
   // Get the list of accounts we possess the private key for
-  const keyringOptions = keyring.getPairs().map(account => ({
+  const keyringOptions = keyring.getPairs().map((account) => ({
     key: account.address,
     value: account.address,
     text: account.meta.name.toUpperCase(),
-    icon: 'user',
-  }))
+    icon: "user",
+  }));
 
-  const initialAddress =
-    keyringOptions.length > 0 ? keyringOptions[0].value : ''
+  const initialAddress = keyringOptions.length > 0 ? keyringOptions[0].value : "";
 
   // Set the initial address
   useEffect(() => {
     // `setCurrentAccount()` is called only when currentAccount is null (uninitialized)
-    !currentAccount &&
-      initialAddress.length > 0 &&
-      setCurrentAccount(keyring.getPair(initialAddress))
-  }, [currentAccount, setCurrentAccount, keyring, initialAddress])
+    !currentAccount && initialAddress.length > 0 && setCurrentAccount(keyring.getPair(initialAddress));
+  }, [currentAccount, setCurrentAccount, keyring, initialAddress]);
 
-  const onChange = addr => {
-    setCurrentAccount(keyring.getPair(addr))
-  }
-  const urlParams = window.location.pathname.split('/')[1]
+  const onChange = (addr) => {
+    setCurrentAccount(keyring.getPair(addr));
+  };
+  const urlParams = window.location.pathname.split("/")[1];
 
   return (
     <Menu
       attached="top"
       tabular
       style={{
-        backgroundColor: '#000',
-        borderColor: '#fff',
-        paddingTop: '1em',
-        paddingBottom: '1em',
-        marginBottom: '1em',
+        backgroundColor: "#000",
+        borderColor: "#fff",
+        paddingTop: "1em",
+        paddingBottom: "1em",
+        marginBottom: "1em",
       }}
     >
       <Container>
         <Menu.Menu>
-          <Image
-            as={Link}
-            to="/"
-            src={`${process.env.PUBLIC_URL}/assets/deVin-darkMode.png`}
-            size="small"
-          />
+          <Image as={Link} to="/" src={`${process.env.PUBLIC_URL}/assets/deVin-darkMode.png`} size="small" />
         </Menu.Menu>
-        {urlParams === 'organizations' ? (
-          <Menu.Menu position="right" style={{ alignItems: 'center' }}>
+        {urlParams === "organizations" ? (
+          <Menu.Menu position="right" style={{ alignItems: "center" }}>
             {!currentAccount ? (
               <span>
                 Create an account with Polkadot-JS Extension (
@@ -89,13 +72,7 @@ function Main(props) {
               </span>
             ) : null}
             <CopyToClipboard text={acctAddr(currentAccount)}>
-              <Button
-                basic
-                circular
-                size="large"
-                icon="user"
-                color={currentAccount ? 'black' : 'red'}
-              />
+              <Button basic circular size="large" icon="user" color={currentAccount ? "yellow" : "red"} />
             </CopyToClipboard>
             <Dropdown
               search
@@ -104,51 +81,49 @@ function Main(props) {
               placeholder="Select an account"
               options={keyringOptions}
               onChange={(_, dropdown) => {
-                onChange(dropdown.value)
+                onChange(dropdown.value);
               }}
               value={acctAddr(currentAccount)}
             />
             <BalanceAnnotation />
           </Menu.Menu>
         ) : (
-          <Menu.Menu position="right" style={{ alignItems: 'center' }}>
+          <Menu.Menu position="right" style={{ alignItems: "center" }}>
             <CreateButton />
           </Menu.Menu>
         )}
       </Container>
     </Menu>
-  )
+  );
 }
 
 function BalanceAnnotation(props) {
-  const { api, currentAccount } = useSubstrateState()
-  const [accountBalance, setAccountBalance] = useState(0)
+  const { api, currentAccount } = useSubstrateState();
+  const [accountBalance, setAccountBalance] = useState(0);
 
   // When account address changes, update subscriptions
   useEffect(() => {
-    let unsubscribe
+    let unsubscribe;
 
     // If the user has selected an address, create a new subscription
     currentAccount &&
       api.query.system
-        .account(acctAddr(currentAccount), balance =>
-          setAccountBalance(balance.data.free.toHuman())
-        )
-        .then(unsub => (unsubscribe = unsub))
-        .catch(console.error)
+        .account(acctAddr(currentAccount), (balance) => setAccountBalance(balance.data.free.toHuman()))
+        .then((unsub) => (unsubscribe = unsub))
+        .catch(console.error);
 
-    return () => unsubscribe && unsubscribe()
-  }, [api, currentAccount])
+    return () => unsubscribe && unsubscribe();
+  }, [api, currentAccount]);
 
   return currentAccount ? (
     <Label pointing="left">
       <Icon name="money" color="black" />
       {accountBalance}
     </Label>
-  ) : null
+  ) : null;
 }
 
 export default function AccountSelector(props) {
-  const { api, keyring } = useSubstrateState()
-  return keyring.getPairs && api.query ? <Main {...props} /> : null
+  const { api, keyring } = useSubstrateState();
+  return keyring.getPairs && api.query ? <Main {...props} /> : null;
 }

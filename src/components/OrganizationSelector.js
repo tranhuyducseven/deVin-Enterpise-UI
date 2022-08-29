@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Segment, Form } from 'semantic-ui-react';
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 
 import { u8aToString } from '@polkadot/util';
 
 export default function Main (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const { accountPair, setSelectedOrganization } = props;
   const [organizations, setOrganizations] = useState([]);
   const [selected, setSelected] = useState('');

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Card, List, Message } from 'semantic-ui-react';
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 import { hexToString } from '@polkadot/util';
 
 export default function Main (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const { organization, setSelectedShipment } = props;
   const [shipments, setShipments] = useState([]);
   const [selected, setSelected] = useState('');

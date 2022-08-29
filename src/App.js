@@ -1,16 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Dashboard from "./Dashboard";
-import HomeScreen from "./screens/home";
 import "semantic-ui-css/semantic.min.css";
+import HomeScreen from "./screens/home";
+import OrganizationsScreen from "./screens/organizations";
 
 export default function App() {
   return (
     <Router>
       <Switch>
         <Route path="/organizations">
-          <Dashboard />
+          <OrganizationsScreen />
         </Route>
         <Route path="/">
           <HomeScreen />

@@ -34,7 +34,7 @@ function Main (props) {
           const params = event.data.map(
             (data, index) => `${types[index].type}: ${data.toString()}`
           );
-
+            
           setEventFeed(e => [{
             icon: 'bell',
             summary: `${eventName}-${e.length}`,

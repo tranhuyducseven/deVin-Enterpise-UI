@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Card } from 'semantic-ui-react';
 
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
 import { hexToString, u8aToString } from '@polkadot/util';
 
 function RegisterShipmentFormComponent (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const { accountPair, organization } = props;
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
@@ -136,6 +136,6 @@ function RegisterShipmentFormComponent (props) {
 }
 
 export default function RegisterShipmentForm (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   return api.tx ? <RegisterShipmentFormComponent {...props}/> : null;
 }

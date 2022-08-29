@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Form } from 'semantic-ui-react';
 
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
 
 function Main (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const { accountPair } = props;
   const [status, setStatus] = useState(null);
   const [palletRPCs, setPalletRPCs] = useState([]);
@@ -101,6 +101,6 @@ function Main (props) {
 }
 
 export default function CreateRole (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   return api.tx ? <Main {...props} /> : null;
 }
