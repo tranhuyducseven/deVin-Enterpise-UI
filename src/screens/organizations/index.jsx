@@ -1,14 +1,15 @@
 import React from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import Dashboard from "./components/Dashboard";
+import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { SubstrateContextProvider } from "../../substrate-lib";
-import Dashboard from "./Dashboard.component";
-
-export default function OrganizationsScreen(props) {
+const OrganizationScreen = ({props}) => {
   return (
     <SubstrateContextProvider>
-      <MainLayout>
+      <DefaultLayout>
         <Dashboard {...props} />
-      </MainLayout>
+      </DefaultLayout>
     </SubstrateContextProvider>
   );
-}
+};
+
+export default OrganizationScreen;

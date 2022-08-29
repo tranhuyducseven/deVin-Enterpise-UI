@@ -37,83 +37,24 @@ function Main(props) {
   const onChange = (addr) => {
     setCurrentAccount(keyring.getPair(addr));
   };
-
   return (
-    <Menu
-      attached="top"
-      tabular
-      style={{
-        backgroundColor: "#000",
-        borderColor: "#fff",
-        paddingTop: "1em",
-        paddingBottom: "1em",
-        marginBottom: "1em",
-      }}
-    >
-      <Container>
-        <Menu.Menu>
-          <Image as={Link} to="/" src={`${process.env.PUBLIC_URL}/assets/deVin-darkMode.png`} size="small" />
-        </Menu.Menu>
-
-        <Menu.Menu position="right" style={{ alignItems: "center" }}>
-          {!currentAccount ? (
-            <span>
-              Create an account with Polkadot-JS Extension (
-              <a target="_blank" rel="noreferrer" href={CHROME_EXT_URL}>
-                Chrome
-              </a>
-              ,&nbsp;
-              <a target="_blank" rel="noreferrer" href={FIREFOX_ADDON_URL}>
-                Firefox
-              </a>
-              )&nbsp;
-            </span>
-          ) : null}
-          <CopyToClipboard text={acctAddr(currentAccount)}>
-            <Button basic circular size="large" icon="user" color={currentAccount ? "yellow" : "red"} />
-          </CopyToClipboard>
-          <Dropdown
-            search
-            selection
-            clearable
-            placeholder="Select an account"
-            options={keyringOptions}
-            onChange={(_, dropdown) => {
-              onChange(dropdown.value);
-            }}
-            value={acctAddr(currentAccount)}
-          />
-          <BalanceAnnotation />
-        </Menu.Menu>
-      </Container>
-    </Menu>
+    <div className="account-selector">
+      <CopyToClipboard className="" text={acctAddr(currentAccount)}>
+        <Button basic circular size="large" icon="user" color={currentAccount ? "yellow" : "red"} />
+      </CopyToClipboard>
+      <Dropdown
+        className="!bg-[#ececec] !border-none"
+        search
+        selection
+        placeholder="Select an account"
+        options={keyringOptions}
+        onChange={(_, dropdown) => {
+          onChange(dropdown.value);
+        }}
+        value={acctAddr(currentAccount)}
+      />
+    </div>
   );
-}
-
-function BalanceAnnotation(props) {
-  const { api, currentAccount } = useSubstrateState();
-  const [accountBalance, setAccountBalance] = useState(0);
-
-  // When account address changes, update subscriptions
-  useEffect(() => {
-    let unsubscribe;
-
-    // If the user has selected an address, create a new subscription
-    currentAccount &&
-      api.query.system
-        .account(acctAddr(currentAccount), (balance) => setAccountBalance(balance.data.free.toHuman()))
-        .then((unsub) => (unsubscribe = unsub))
-        .catch(console.error);
-
-    return () => unsubscribe && unsubscribe();
-  }, [api, currentAccount]);
-
-  return currentAccount ? (
-    <Label pointing="left">
-      <Icon name="money" color="black" />
-      {accountBalance}
-    </Label>
-  ) : null;
 }
 
 export default function AccountSelector(props) {
