@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Button, Container, Dropdown, Icon, Image, Label, Menu } from "semantic-ui-react";
 
 import { useSubstrate, useSubstrateState } from "../substrate-lib";
-import CreateButton from "./CreateBtn";
 
 const CHROME_EXT_URL =
   "https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd";
@@ -38,7 +37,6 @@ function Main(props) {
   const onChange = (addr) => {
     setCurrentAccount(keyring.getPair(addr));
   };
-  const urlParams = window.location.pathname.split("/")[1];
 
   return (
     <Menu
@@ -56,42 +54,37 @@ function Main(props) {
         <Menu.Menu>
           <Image as={Link} to="/" src={`${process.env.PUBLIC_URL}/assets/deVin-darkMode.png`} size="small" />
         </Menu.Menu>
-        {urlParams === "organizations" ? (
-          <Menu.Menu position="right" style={{ alignItems: "center" }}>
-            {!currentAccount ? (
-              <span>
-                Create an account with Polkadot-JS Extension (
-                <a target="_blank" rel="noreferrer" href={CHROME_EXT_URL}>
-                  Chrome
-                </a>
-                ,&nbsp;
-                <a target="_blank" rel="noreferrer" href={FIREFOX_ADDON_URL}>
-                  Firefox
-                </a>
-                )&nbsp;
-              </span>
-            ) : null}
-            <CopyToClipboard text={acctAddr(currentAccount)}>
-              <Button basic circular size="large" icon="user" color={currentAccount ? "yellow" : "red"} />
-            </CopyToClipboard>
-            <Dropdown
-              search
-              selection
-              clearable
-              placeholder="Select an account"
-              options={keyringOptions}
-              onChange={(_, dropdown) => {
-                onChange(dropdown.value);
-              }}
-              value={acctAddr(currentAccount)}
-            />
-            <BalanceAnnotation />
-          </Menu.Menu>
-        ) : (
-          <Menu.Menu position="right" style={{ alignItems: "center" }}>
-            <CreateButton />
-          </Menu.Menu>
-        )}
+
+        <Menu.Menu position="right" style={{ alignItems: "center" }}>
+          {!currentAccount ? (
+            <span>
+              Create an account with Polkadot-JS Extension (
+              <a target="_blank" rel="noreferrer" href={CHROME_EXT_URL}>
+                Chrome
+              </a>
+              ,&nbsp;
+              <a target="_blank" rel="noreferrer" href={FIREFOX_ADDON_URL}>
+                Firefox
+              </a>
+              )&nbsp;
+            </span>
+          ) : null}
+          <CopyToClipboard text={acctAddr(currentAccount)}>
+            <Button basic circular size="large" icon="user" color={currentAccount ? "yellow" : "red"} />
+          </CopyToClipboard>
+          <Dropdown
+            search
+            selection
+            clearable
+            placeholder="Select an account"
+            options={keyringOptions}
+            onChange={(_, dropdown) => {
+              onChange(dropdown.value);
+            }}
+            value={acctAddr(currentAccount)}
+          />
+          <BalanceAnnotation />
+        </Menu.Menu>
       </Container>
     </Menu>
   );

@@ -50,7 +50,7 @@ const SocialMediaGroupComponent = () => {
 
 export const ContactInfo = () => {
   return (
-    <div className="contact-info mt-[100px]">
+    <div className="contact-info">
       <footer
         id="footer"
         className="p-2 lg:p-5 xl:grid xl:grid-cols-4 items-center bg-black"

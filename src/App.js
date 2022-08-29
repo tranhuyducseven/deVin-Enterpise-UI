@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/organizations">
+        <Route path="/app">
           <OrganizationsScreen />
         </Route>
         <Route path="/">
