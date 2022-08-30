@@ -17,3 +17,15 @@ This project was forked from the official
 Please refer to
 [its documentation](https://github.com/substrate-developer-hub/substrate-front-end-template/blob/v2.0.0-rc6/README.md)
 to learn about building and running the front-end.
+
+
+
+# Note:
+1. Remove `important` of `semantic-ui-css/semantic.min.css`
+
+```css
+.ui.menu.fluid, .ui.vertical.menu.fluid
+.ui.tabular.fluid.menu
+.ui.vertical.tabular.menu
+.ui.grid: margin 0: remove
+```
