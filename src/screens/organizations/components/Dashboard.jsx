@@ -1,11 +1,13 @@
 import React, { createRef, useState } from "react";
 import "semantic-ui-css/semantic.min.css";
-import { Image, Tab } from "semantic-ui-react";
-import { AccountSelector, Members, Organizations, Products, Shipments, Tracking } from "../../../components";
+import { Image } from "semantic-ui-react";
+import { AccountSelector, Members, Products, Shipments, Tracking } from "../../../components";
+import Overview from "../../../components/Overview";
 import { useSubstrateState } from "../../../substrate-lib";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import IconDashboard from "./IconDashboard";
+import TabsDashboard from "./TabsDashboard";
 
 const Dashboard = (props) => {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -21,17 +23,18 @@ const Dashboard = (props) => {
 
   const panes = [
     {
-      menuItem: <IconDashboard />,
-      render: () => (
-        <div className="text-white bg-white">
-          <Organizations accountPair={accountPair} />
-        </div>
-      ),
+      name: "Overview",
+      menuItem: <IconDashboard name="home" />,
+      render: <Overview />,
     },
-    { menuItem: <IconDashboard />, render: () => <Members accountPair={accountPair} /> },
-    { menuItem: <IconDashboard />, render: () => <Products accountPair={accountPair} /> },
-    { menuItem: <IconDashboard />, render: () => <Shipments accountPair={accountPair} /> },
-    { menuItem: <IconDashboard />, render: () => <Tracking accountPair={accountPair} /> },
+    { name: "Members", menuItem: "member", render: <Members accountPair={accountPair} /> },
+    {
+      name: "Organizations",
+      menuItem: <div className="text-white">Product</div>,
+      render: () => <Products accountPair={accountPair} />,
+    },
+    { name: "Organizations", menuItem: <IconDashboard />, render: <Shipments accountPair={accountPair} /> },
+    { name: "Organizations", menuItem: <IconDashboard />, render: <Tracking accountPair={accountPair} /> },
   ];
 
   const contextRef = createRef();
@@ -46,8 +49,8 @@ const Dashboard = (props) => {
           <AccountSelector />
         </div>
       </div>
-      <div>
-        <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+      <div className="">
+        <TabsDashboard panes={panes} />
       </div>
     </div>
   );

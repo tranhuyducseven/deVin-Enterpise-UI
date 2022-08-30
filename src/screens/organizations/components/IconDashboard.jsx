@@ -1,10 +1,12 @@
+import React from "react";
+import { Image } from "semantic-ui-react";
 
-import React from 'react'
-
-const IconDashboard = () => {
+const IconDashboard = ({ name }) => {
   return (
-    <div className="w-[50%]">IconDashboard</div>
-  )
-}
+    <span className="icon-dashboard flex justify-center items-center">
+      <Image className="" src={`/assets/icons/${name}.png`} />;
+    </span>
+  );
+};
 
-export default IconDashboard
+export default IconDashboard;

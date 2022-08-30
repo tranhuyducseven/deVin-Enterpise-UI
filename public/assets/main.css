@@ -7,10 +7,12 @@
   line-height: 4rem !important;
 }
 
-.ui.menu.fluid, .ui.vertical.menu.fluid {
-  width: 41% !important;
+.ui.grid > * {
+  padding: 0 !important;
 }
-
+.four.wide.column {
+  width: 92px;
+}
 html,
 body {
   padding: 0;
@@ -58,6 +60,3 @@ a {
   background-color: #fcd535;
   border: 1px solid white;
 }
-
-
-
