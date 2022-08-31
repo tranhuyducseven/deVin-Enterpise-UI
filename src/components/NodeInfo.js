@@ -22,16 +22,24 @@ function Main(props) {
     };
     getInfo();
   }, [api.rpc.system]);
-
   return (
-    <div className="bg-[#E5F2FE] p-6 rounded-xl">
+    <div className="bg-[#E5F2FE] py-6 px-8 rounded-3xl">
       <div>
-        <h1 className="m-0">{nodeInfo.nodeName}</h1>
-        <div className="text-sm mb-4">{nodeInfo.chain} </div>
-        <div className="mb-4 text-blue">{socket}</div>
+        <h1 className="mb-4">{nodeInfo.nodeName}</h1>
+        <div className="text-lg mb-4">
+          <Icon name="chain" />
+          <span className="font-semibold"> Chain: </span>
+          {nodeInfo.chain}
+        </div>
+        <div className="text-lg mb-4 text-blue">
+          <Icon name="rocket" />
+          <span className="font-semibold"> Socket: </span>
+          {socket}
+        </div>
       </div>
-      <div extra>
-        <Icon name="setting" />v{nodeInfo.nodeVersion}
+      <div className="text-lg mb-4">
+      <Icon name="setting" />
+        <span className="font-semibold"> Version: </span>v{nodeInfo.nodeVersion}
       </div>
     </div>
   );
