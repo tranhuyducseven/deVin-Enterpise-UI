@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Icon, Grid } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 
 import { useSubstrateState } from "../substrate-lib";
 
@@ -23,7 +23,7 @@ function Main(props) {
     getInfo();
   }, [api.rpc.system]);
   return (
-    <div className="bg-[#E5F2FE] py-6 px-8 rounded-3xl">
+    <div className="bg-[#E5F2FE] py-8 px-8 rounded-3xl">
       <div>
         <h1 className="mb-4">{nodeInfo.nodeName}</h1>
         <div className="text-lg mb-4">
@@ -38,7 +38,7 @@ function Main(props) {
         </div>
       </div>
       <div className="text-lg mb-4">
-      <Icon name="setting" />
+        <Icon name="setting" />
         <span className="font-semibold"> Version: </span>v{nodeInfo.nodeVersion}
       </div>
     </div>
