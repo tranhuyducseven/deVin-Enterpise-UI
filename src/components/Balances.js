@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Button, Grid, Label, Table } from 'semantic-ui-react'
+import { Button, Label, Table } from 'semantic-ui-react'
 import { useSubstrateState } from '../substrate-lib'
 
 export default function Main(props) {
@@ -32,7 +32,7 @@ export default function Main(props) {
   }, [api, keyring, setBalances])
 
   return (
-    <Grid.Column>
+    <div>
       <h1>Balances</h1>
       {accounts.length === 0 ? (
         <Label basic color="yellow">
@@ -82,6 +82,6 @@ export default function Main(props) {
           </Table.Body>
         </Table>
       )}
-    </Grid.Column>
+    </div>
   )
 }

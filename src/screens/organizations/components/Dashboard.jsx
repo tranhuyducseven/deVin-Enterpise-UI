@@ -23,18 +23,16 @@ const Dashboard = (props) => {
 
   const panes = [
     {
-      name: "Overview",
       menuItem: <IconDashboard name="home" />,
-      render: <Overview />,
+      render: <Overview name="Overview" />,
     },
-    { name: "Members", menuItem: "member", render: <Members accountPair={accountPair} /> },
+    { menuItem: "member", render: <Members name="Members" accountPair={accountPair} /> },
     {
-      name: "Organizations",
       menuItem: <div className="text-white">Product</div>,
-      render: () => <Products accountPair={accountPair} />,
+      render: () => <Products name="Overview" accountPair={accountPair} />,
     },
-    { name: "Organizations", menuItem: <IconDashboard />, render: <Shipments accountPair={accountPair} /> },
-    { name: "Organizations", menuItem: <IconDashboard />, render: <Tracking accountPair={accountPair} /> },
+    { menuItem: <IconDashboard />, render: <Shipments name="Overview" accountPair={accountPair} /> },
+    { menuItem: <IconDashboard />, render: <Tracking name="Overview" accountPair={accountPair} /> },
   ];
 
   const contextRef = createRef();
@@ -49,9 +47,7 @@ const Dashboard = (props) => {
           <AccountSelector />
         </div>
       </div>
-      <div className="">
-        <TabsDashboard panes={panes} />
-      </div>
+      <TabsDashboard panes={panes} />
     </div>
   );
 };

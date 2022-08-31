@@ -22,21 +22,27 @@ const Overview = () => {
 
   return (
     <div ref={contextRef}>
-      <Container>
-        <Grid stackable columns="equal">
-          <Grid.Row stretched>
-            <NodeInfo />
-            <Metadata />
-            <BlockNumber />
-            <BlockNumber finalized />
-          </Grid.Row>
-          <Grid.Row stretched>
-            <Balances />
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <div className="heading">
+        <span>Portfolio</span>
+      </div>
+      <div className="grid grid-cols-5 gap-3">
+        <div className="col-span-2">
+          <NodeInfo />
+        </div>
+        <div className="">
+          <Metadata />
+        </div>
+        <div className="">
+          <BlockNumber />
+        </div>
+        <div className="">
+          <BlockNumber finalized />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Overview;
+
+//<Balances />

@@ -7,16 +7,14 @@ const TabsDashboard = ({ panes }) => {
   return (
     <div className="bg-white">
       <Tabs orientation="vertical">
-        <TabList className="w-[91px] !bg-black">
+        <TabList className="!bg-black">
           {panes.map((pane) => (
-            <Tab className="!border-none">{pane.menuItem}</Tab>
+            <Tab className="!border-none w-[91px]">{pane.menuItem}</Tab>
           ))}
         </TabList>
-        <TabPanels>
+        <TabPanels className="p-12">
           {panes.map((pane) => (
-            <TabPanel>
-              <div>{pane.render}</div>
-            </TabPanel>
+            <TabPanel>{pane.render}</TabPanel>
           ))}
         </TabPanels>
       </Tabs>
@@ -28,9 +26,7 @@ export default TabsDashboard;
 
 TabsDashboard.propTypes = {
   panes: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.shape({ menuItem: PropTypes.element, name: PropTypes.string, render: PropTypes.element })
-    )
+    PropTypes.objectOf(PropTypes.shape({ menuItem: PropTypes.element, render: PropTypes.element }))
   ),
 };
 TabsDashboard.defaultProps = {
