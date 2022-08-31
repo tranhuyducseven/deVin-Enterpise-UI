@@ -1,9 +1,9 @@
 import React from "react";
 
-const AnimationBox = () => {
+const AnimationBox = ({ isOrg }) => {
   return (
     <div className="animation-box">
-      <ul className="items">
+      <ul className={`${isOrg ? "-z-10" : ""} items`}>
         {Array(10)
           .fill("")
           .map((_, idx) => {

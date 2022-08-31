@@ -1,12 +1,9 @@
 import React, { createRef } from "react";
 import "semantic-ui-css/semantic.min.css";
-import { Container, Grid, Sticky } from "semantic-ui-react";
-import AccountSelector from "./AccountSelector";
+import { useSubstrateState } from "../substrate-lib";
 import BlockNumber from "./BlockNumber";
 import Metadata from "./Metadata";
 import NodeInfo from "./NodeInfo";
-import Balances from "./Balances";
-import { useSubstrateState } from "../substrate-lib";
 
 const contextRef = createRef();
 
@@ -21,11 +18,13 @@ const Overview = () => {
   }
 
   return (
-    <div ref={contextRef}>
-      <div className="heading">
-        <span>Portfolio</span>
+    <div ref={contextRef} className="overview">
+      <div className="dashboard-name font-bold text-4xl relative -top-[35px]">Overview</div>
+      <div className="heading grid grid-cols-5 gap-x-4">
+        <div className="col-start-1 font-bold text-3xl pb-4">Portfolio</div>
+        <div className="col-start-3 font-bold text-3xl pb-4">Detail</div>
       </div>
-      <div className="grid grid-cols-5 gap-3">
+      <div className="grid grid-cols-5 gap-4">
         <div className="col-span-2">
           <NodeInfo />
         </div>

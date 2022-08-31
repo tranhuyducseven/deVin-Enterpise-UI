@@ -12,7 +12,7 @@ const TabsDashboard = ({ panes }) => {
             <Tab className="!border-none w-[91px]">{pane.menuItem}</Tab>
           ))}
         </TabList>
-        <TabPanels className="p-12">
+        <TabPanels className="px-12 py-0 grow">
           {panes.map((pane) => (
             <TabPanel>{pane.render}</TabPanel>
           ))}

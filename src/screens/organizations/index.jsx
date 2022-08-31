@@ -1,14 +1,14 @@
 import React from "react";
-import Dashboard from "./components/Dashboard";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { SubstrateContextProvider } from "../../substrate-lib";
 import AnimationBox from "../components/AnimationBox";
-const OrganizationScreen = ({props}) => {
+import Dashboard from "./components/Dashboard";
+const OrganizationScreen = ({ props }) => {
   return (
     <SubstrateContextProvider>
       <DefaultLayout>
         <Dashboard {...props} />
-        <AnimationBox />
+        <AnimationBox isOrg />
       </DefaultLayout>
     </SubstrateContextProvider>
   );
