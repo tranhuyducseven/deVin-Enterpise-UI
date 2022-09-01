@@ -39,7 +39,7 @@ function Main(props) {
   return (
     <div className={`${finalized ? "bg-[#F6F0D8]" : "bg-[#D6EDDA]"} py-8 px-8 rounded-3xl`}>
       <h1 className="mb-[32px] text-center text-5xl">{blockNumber}</h1>
-      <div className="mb-[32px] text-lg text-center text-2xl">{(finalized ? "Finalized" : "Current") + " Block"}</div>
+      <div className="mb-[34px] text-lg text-center text-2xl">{(finalized ? "Finalized" : "Current") + " Block"}</div>
       <div className="clock-block text-right text-3xl font-bold">
         <Icon name="time" /> {blockNumberTimer}
       </div>

@@ -38,7 +38,7 @@ const Dashboard = (props) => {
   const contextRef = createRef();
 
   return (
-    <div ref={contextRef} className="dashboard p-4 ">
+    <div ref={contextRef} className="dashboard p-4 relative">
       <div className="flex">
         <div className="logo w-20 h-20 ">
           <Image src={`${process.env.PUBLIC_URL}/assets/deVin-yellow.png`} className="m-0" />

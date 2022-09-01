@@ -5,16 +5,16 @@ import PropTypes from "prop-types";
 
 const TabsDashboard = ({ panes }) => {
   return (
-    <div className="bg-white">
+    <div className="bg-black">
       <Tabs orientation="vertical">
         <TabList className="!bg-black">
           {panes.map((pane) => (
             <Tab className="!border-none w-[91px]">{pane.menuItem}</Tab>
           ))}
         </TabList>
-        <TabPanels className="px-12 py-0 grow">
+        <TabPanels className="tab-panels px-12 pt-2 pb-12 grow rounded-b-[3.5rem] bg-white">
           {panes.map((pane) => (
-            <TabPanel>{pane.render}</TabPanel>
+            <TabPanel className="">{pane.render}</TabPanel>
           ))}
         </TabPanels>
       </Tabs>
