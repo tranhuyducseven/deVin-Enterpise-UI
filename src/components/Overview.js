@@ -8,7 +8,7 @@ import NodeInfo from "./NodeInfo";
 
 const contextRef = createRef();
 
-const Overview = () => {
+const Overview = ({name}) => {
   const { apiState, apiError, keyringState } = useSubstrateState();
 
   if (apiState === "ERROR") return <Message errObj={apiError} />;
@@ -20,7 +20,7 @@ const Overview = () => {
 
   return (
     <div ref={contextRef} className="overview">
-      <div className="dashboard-name font-bold text-3xl absolute top-[30px] z-10">Overview</div>
+      <div className="dashboard-name font-bold text-3xl absolute top-[30px] z-10">{name}</div>
       <div className="heading grid grid-cols-5 gap-x-4">
         <div className="col-start-1 font-bold text-2xl pb-4">Portfolio</div>
         <div className="col-start-3 font-bold text-2xl pb-4">Detail</div>

@@ -1,7 +1,7 @@
 import React, { createRef, useState } from "react";
 import "semantic-ui-css/semantic.min.css";
 import { Image } from "semantic-ui-react";
-import { AccountSelector, Members, Products, Shipments, Tracking } from "../../../components";
+import { AccountSelector, Members, Organizations, Products, Shipments, Tracking } from "../../../components";
 import Overview from "../../../components/Overview";
 import { useSubstrateState } from "../../../substrate-lib";
 import Loader from "../../components/Loader";
@@ -26,13 +26,17 @@ const Dashboard = (props) => {
       menuItem: <IconDashboard name="home" />,
       render: <Overview name="Overview" />,
     },
-    { menuItem: "member", render: <Members name="Members" accountPair={accountPair} /> },
     {
-      menuItem: <div className="text-white">Product</div>,
-      render: () => <Products name="Overview" accountPair={accountPair} />,
+      menuItem: <IconDashboard name="organization" />,
+      render: <Organizations accountPair={accountPair} />,
     },
-    { menuItem: <IconDashboard />, render: <Shipments name="Overview" accountPair={accountPair} /> },
-    { menuItem: <IconDashboard />, render: <Tracking name="Overview" accountPair={accountPair} /> },
+    { menuItem: <IconDashboard name="member" />, render: <Members accountPair={accountPair} /> },
+    {
+      menuItem: <IconDashboard name="product" />,
+      render: () => <Products accountPair={accountPair} />,
+    },
+    { menuItem: <IconDashboard name="shipment" />, render: <Shipments accountPair={accountPair} /> },
+    { menuItem: <IconDashboard name="tracking" />, render: <Tracking accountPair={accountPair} /> },
   ];
 
   const contextRef = createRef();

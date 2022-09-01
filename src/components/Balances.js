@@ -53,24 +53,29 @@ export default function Main(props) {
                 <strong>Balance</strong>
               </Table.Cell>
             </Table.Row>
-            {accounts.map((account) => (
-              <Table.Row key={account.address}>
-                <Table.Cell width={3}>{capitalize(account.meta.name)}</Table.Cell>
-                <Table.Cell
-                  width={8}
-                  className="!w-full relative !p-6 hover:border-x-4 hover:border-[#ffdd50] flex items-center"
-                >
-                  <div className="">{account.address}</div>
-                  <CopyToClipboard
-                    className="ml-4 absolute right-4 hover:scale-105 active:scale-90 duration-300 w-[40px] h-[40px] font-semibold"
-                    text={account.address}
-                  >
-                    <Button basic circular compact size="medium" color="yellow" icon="copy" />
-                  </CopyToClipboard>
-                </Table.Cell>
-                <Table.Cell width={3}>{balances && balances[account.address] && balances[account.address]}</Table.Cell>
-              </Table.Row>
-            ))}
+            {accounts.map((account) => {
+              if (account.meta.name != "alice_stash" && account.meta.name != "bob_stash")
+                return (
+                  <Table.Row key={account.address}>
+                    <Table.Cell width={3}>{capitalize(account.meta.name)}</Table.Cell>
+                    <Table.Cell
+                      width={8}
+                      className="!w-full relative !p-6 hover:border-x-4 hover:border-[#ffdd50] flex items-center"
+                    >
+                      <div className="">{account.address}</div>
+                      <CopyToClipboard
+                        className="ml-4 absolute right-4 hover:scale-105 active:scale-90 duration-300 w-[40px] h-[40px] font-semibold"
+                        text={account.address}
+                      >
+                        <Button basic circular compact size="medium" color="yellow" icon="copy" />
+                      </CopyToClipboard>
+                    </Table.Cell>
+                    <Table.Cell width={3}>
+                      {balances && balances[account.address] && balances[account.address]}
+                    </Table.Cell>
+                  </Table.Row>
+                );
+            })}
           </Table.Body>
         </Table>
       )}
