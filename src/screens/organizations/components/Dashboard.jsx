@@ -1,4 +1,5 @@
 import React, { createRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Image } from "semantic-ui-react";
 import { AccountSelector, Members, Organizations, Products, Shipments, Tracking } from "../../../components";
@@ -44,9 +45,9 @@ const Dashboard = (props) => {
   return (
     <div ref={contextRef} className="dashboard p-4 relative">
       <div className="flex">
-        <div className="logo w-20 h-20 ">
+        <Link to="/" className="logo w-20 h-20 ">
           <Image src={`${process.env.PUBLIC_URL}/assets/deVin-yellow.png`} className="m-0" />
-        </div>
+        </Link>
         <div className="account text-white grow bg-white rounded-t-[3.5rem] ml-6 flex justify-end items-center pr-12">
           <AccountSelector />
         </div>

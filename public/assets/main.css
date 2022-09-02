@@ -177,4 +177,66 @@ a {
   overflow: hidden;
 }
 
+/* form input */
+.form-input label {
+  font-size: 1.5rem!important; 
+  line-height: 2rem!important;
+}
+.form-input input {
+  border: 1px solid white !important;
+  padding: 12px !important;
+  font-size: 1.325rem !important;
+  line-height: 1.75rem !important;
+  font-weight: bold !important;
+}
+.form-input input:hover {
+  border: 1px solid black !important;
+}
 
+.ui.basic.button.default-button {
+  background-color: #f8fafc !important;
+  margin-top: 31px !important;
+  border-radius: 0.5rem !important;
+  font-size: 1.5rem; 
+  line-height: 2rem;
+  font-weight: 600 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  border: none !important;
+  color: black !important;
+  opacity: 1 !important;
+  z-index: index 10 !important;
+}
+.ui.basic.black.button.default-button:hover {
+  transform: scale(1.05) !important;
+  background-color: black !important;
+  color: white !important;
+  transition-duration: 500ms !important;
+  opacity: 1 !important;
+}
+
+.ui.basic.button.events-button.grey {
+  color: white !important;
+}
+
+.ui.basic.button.events-button.grey:hover {
+  transform: scale(1.05) !important;
+  color: #fbbd08 !important;
+}
+
+.ui.feed.events-feed > .event > .label .icon {
+  color: white;
+}
+
+.ui.feed.events-feed > .event > .content {
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 32px 32px !important;
+}
+.ui.feed.events-feed > .event > .content,
+.ui.feed.events-feed > .event > .content > .summary,
+.ui.feed.events-feed > .event > .content > .text.extra {
+  font-size: 1.5rem!important; 
+  line-height: 2rem!important;
+  color: white;
+}

@@ -1,46 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { Feed, Button, Card } from 'semantic-ui-react';
+import React, { useEffect, useState } from "react";
+import { Feed, Button, Card } from "semantic-ui-react";
 
-import { useSubstrateState } from '../substrate-lib';
+import { useSubstrateState } from "../substrate-lib";
 
 // Events to be filtered from feed
 const FILTERED_EVENTS = [
   'system:ExtrinsicSuccess:: (phase={"ApplyExtrinsic":0})',
-  'system:ExtrinsicSuccess:: (phase={"ApplyExtrinsic":1})'
+  'system:ExtrinsicSuccess:: (phase={"ApplyExtrinsic":1})',
 ];
 
-function Main (props) {
+function Main(props) {
   const { api } = useSubstrateState();
   const [eventFeed, setEventFeed] = useState([]);
 
   useEffect(() => {
     let unsub = null;
     const allEvents = async () => {
-      unsub = await api.query.system.events(events => {
+      unsub = await api.query.system.events((events) => {
         // loop through the Vec<EventRecord>
-        events.forEach(record => {
+        events.forEach((record) => {
           // extract the phase, event and the event types
           const { event, phase } = record;
           const types = event.typeDef;
 
           // show what we are busy with
-          const eventName = `${event.section}:${
-            event.method
-          }:: (phase=${phase.toString()})`;
+          const eventName = `${event.section}:${event.method}:: (phase=${phase.toString()})`;
 
           if (FILTERED_EVENTS.includes(eventName)) return;
 
           // loop through each of the parameters, displaying the type and data
-          const params = event.data.map(
-            (data, index) => `${types[index].type}: ${data.toString()}`
-          );
-            
-          setEventFeed(e => [{
-            icon: 'bell',
-            summary: `${eventName}-${e.length}`,
-            extraText: event.meta.documentation.join(', ').toString(),
-            content: params.join(', ')
-          }, ...e]);
+          const params = event.data.map((data, index) => `${types[index].type}: ${data.toString()}`);
+
+          setEventFeed((e) => [
+            {
+              icon: "bell",
+              summary: `${eventName}-${e.length}`,
+              extraText: event.meta.documentation.join(", ").toString(),
+              content: params.join(", "),
+            },
+            ...e,
+          ]);
         });
       });
     };
@@ -49,31 +48,34 @@ function Main (props) {
     return () => unsub && unsub();
   }, [api.query.system]);
 
-  const maxHeight = props.maxHeight || 250;
+  const maxHeight = props.maxHeight || "100%";
+  console.log("events: ", eventFeed);
 
-  return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }}>
-      <Card.Header>
-        Events
+  return (
+    <div className="events bg-black w-full p-8 rounded-3xl font-bold">
+      <div className="header relative">
+        <h1 className="text-white">Events</h1>
         <Button
-          basic circular
-          size='mini'
-          color='grey'
-          floated='right'
-          icon='erase'
-          onClick={ _ => setEventFeed([]) }
+          basic
+          circular
+          size="medium"
+          color="grey"
+          floated="right"
+          icon="erase"
+          onClick={(_) => setEventFeed([])}
+          className="absolute top-0 right-5 events-button"
         />
-      </Card.Header>
-    </Card.Content>
-    <Card.Content>
-      <Feed style={{ clear: 'both', overflow: 'auto', maxHeight }} events={eventFeed} />
-    </Card.Content>
-  </Card>;
+      </div>
+
+      <div className="content mt-8">
+        <Feed className="events-feed text-white text-2xl " style={{ clear: "both", overflow: "auto", maxHeight }} events={eventFeed} />
+      </div>
+    </div>
+  );
 }
 
-export default function Events (props) {
+export default function Events(props) {
   const { api } = useSubstrateState();
-  return api.query && api.query.system && api.query.system.events ? (
-    <Main {...props} />
-  ) : null;
+  return api.query && api.query.system && api.query.system.events ? <Main {...props} /> : null;
 }
+

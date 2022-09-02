@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Icon, Modal } from "semantic-ui-react";
-
+import DefaultButton from "./DefaultButton";
 import { useSubstrateState } from "../substrate-lib";
 
 function Main(props) {
@@ -26,13 +26,7 @@ function Main(props) {
         <Icon name="setting" />
         <span className="font-semibold"> Version: </span>v{metadata.version}
       </div>
-      <Modal
-        trigger={
-          <div className="!bg-slate-50 p-[1.25rem] mt-[31px] rounded-lg text-lg font-semibold text-center hover:!bg-black hover:text-white hover:cursor-pointer hover:scale-105  duration-300 ">
-            Show Metadata
-          </div>
-        }
-      >
+      <Modal trigger={<DefaultButton text="Show metadata"/>}>
         <Modal.Header className="!text-5xl !bg-amber-50">Runtime Metadata</Modal.Header>
         <Modal.Content scrolling className="!bg-amber-50">
           <Modal.Description>
