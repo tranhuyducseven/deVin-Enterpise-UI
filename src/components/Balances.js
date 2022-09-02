@@ -12,7 +12,6 @@ export default function Main(props) {
   useEffect(() => {
     const addresses = keyring.getPairs().map((account) => account.address);
     let unsubscribeAll = null;
-
     api.query.system.account
       .multi(addresses, (balances) => {
         const balancesMap = addresses.reduce(
@@ -54,7 +53,7 @@ export default function Main(props) {
               </Table.Cell>
             </Table.Row>
             {accounts.map((account) => {
-              if (account.meta.name != "alice_stash" && account.meta.name != "bob_stash")
+              if (account.meta.name != "bob_stash" )
                 return (
                   <Table.Row key={account.address}>
                     <Table.Cell width={3}>{capitalize(account.meta.name)}</Table.Cell>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Form } from 'semantic-ui-react';
+import React, { useEffect, useState } from "react";
+import { Card, Form } from "semantic-ui-react";
 
-import { useSubstrateState } from '../substrate-lib';
-import { TxButton } from '../substrate-lib/components';
+import { useSubstrateState } from "../substrate-lib";
+import { TxButton } from "../substrate-lib/components";
 
-function Main (props) {
+function Main(props) {
   const { api } = useSubstrateState();
   const { accountPair } = props;
   const [status, setStatus] = useState(null);
@@ -12,7 +12,7 @@ function Main (props) {
   const [permission, setPermission] = useState(0);
 
   const initFormState = {
-    palletRpc: ''
+    palletRpc: "",
   };
 
   const [formState, setFormState] = useState(initFormState);
@@ -20,15 +20,15 @@ function Main (props) {
 
   const permissionOptions = [
     {
-      key: 'Execute',
-      text: 'Execute',
-      value: 'Execute'
+      key: "Execute",
+      text: "Execute",
+      value: "Execute",
     },
     {
-      key: 'Manage',
-      text: 'Manage',
-      value: 'Manage'
-    }
+      key: "Manage",
+      text: "Manage",
+      value: "Manage",
+    },
   ];
 
   const capitalizeFirstLetter = (string) => {
@@ -36,71 +36,78 @@ function Main (props) {
   };
 
   const updatePalletRPCs = () => {
-    if (!api) { return; }
-    const palletRPCs = Object.keys(api.tx).sort()
-      .filter(pr => Object.keys(api.tx[pr]).length > 0)
-      .map(pr => ({ key: pr, value: pr, text: pr }));
+    if (!api) {
+      return;
+    }
+    const palletRPCs = Object.keys(api.tx)
+      .sort()
+      .filter((pr) => Object.keys(api.tx[pr]).length > 0)
+      .map((pr) => ({ key: pr, value: pr, text: pr }));
     setPalletRPCs(palletRPCs);
   };
 
   useEffect(updatePalletRPCs, [api]);
 
   const onPalletCallableParamChange = (_, data) => {
-    setFormState(formState => {
+    setFormState((formState) => {
       let res;
       const { state, value } = data;
-      if (state === 'palletRpc') {
+      if (state === "palletRpc") {
         res = { ...formState, [state]: value };
       }
       return res;
     });
   };
 
-  return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }} header='Create Role' />
-    <Card.Content>
-      <Card.Description>
+  return (
+    <div className="bg-[#E5F2FE] p-8 rounded-3xl h-full">
+      <h1 className="font-bold ">Create Role</h1>
+      <div className="create-role-form mt-12">
         <Form>
           <Form.Dropdown
-            fluid required
-            label='Pallet'
+            fluid
+            required
+            label="Pallet"
             onChange={onPalletCallableParamChange}
             search
             selection
-            state='palletRpc'
+            state="palletRpc"
             value={palletRpc}
             options={palletRPCs}
+            className="form-input"
           />
           <Form.Dropdown
-            fluid required
-            label='Permission'
+            fluid
+            required
+            label="Permission"
             selection
             options={permissionOptions}
-            onChange={(_, { value }) => setPermission(value) }
+            onChange={(_, { value }) => setPermission(value)}
+            className="form-input"
           />
           <Form.Field>
             <TxButton
               accountPair={accountPair}
-              label='Create'
+              label="Create"
               setStatus={setStatus}
-              style={{ display: 'block', margin: 'auto' }}
-              type='SIGNED-TX'
+              style={{ display: "block", margin: "auto" }}
+              type="SIGNED-TX"
               attrs={{
-                palletRpc: 'rbac',
-                callable: 'createRole',
+                palletRpc: "rbac",
+                callable: "createRole",
                 inputParams: [capitalizeFirstLetter(palletRpc), permission],
-                paramFields: [true, true]
+                paramFields: [true, true],
               }}
             />
           </Form.Field>
-          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+          <div className="text-xl font-medium ">{status}</div>
         </Form>
-      </Card.Description>
-    </Card.Content>
-  </Card>;
+      </div>
+    </div>
+  );
 }
 
-export default function CreateRole (props) {
+export default function CreateRole(props) {
   const { api } = useSubstrateState();
   return api.tx ? <Main {...props} /> : null;
 }

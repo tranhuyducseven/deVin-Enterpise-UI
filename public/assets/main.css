@@ -179,8 +179,8 @@ a {
 
 /* form input */
 .form-input label {
-  font-size: 1.5rem!important; 
-  line-height: 2rem!important;
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
 }
 .form-input input {
   border: 1px solid white !important;
@@ -192,12 +192,26 @@ a {
 .form-input input:hover {
   border: 1px solid black !important;
 }
-
+.ui.form .field.form-input > .selection.dropdown {
+  padding: 12px;
+  font-size: 1.325rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  border: 1px solid white !important;
+}
+.ui.form .field.form-input > .selection.dropdown:hover {
+  border: 1px solid black !important;
+}
+.ui.dropdown .menu > .item {
+  font-size: 1.325rem!important;
+  line-height: 1.75rem!important;
+  font-weight: 600!important;
+}
 .ui.basic.button.default-button {
   background-color: #f8fafc !important;
   margin-top: 31px !important;
   border-radius: 0.5rem !important;
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 600 !important;
   text-align: center !important;
@@ -231,12 +245,12 @@ a {
 .ui.feed.events-feed > .event > .content {
   height: 100% !important;
   margin: 0 !important;
-  padding: 0 32px 32px !important;
+  padding:  0 0 0 4px!important;
 }
 .ui.feed.events-feed > .event > .content,
 .ui.feed.events-feed > .event > .content > .summary,
 .ui.feed.events-feed > .event > .content > .text.extra {
-  font-size: 1.5rem!important; 
-  line-height: 2rem!important;
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
   color: white;
 }

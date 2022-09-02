@@ -1,31 +1,30 @@
-import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
+import React from "react";
 
-import CreateRole from './CreateRole';
-import AssignRevokeRole from './AssignRevokeRole';
-import AddSuperAdmin from './AddSuperAdmin';
-import Events from './Events';
+import CreateRole from "./CreateRole";
+import AssignRevokeRole from "./AssignRevokeRole";
+import AddSuperAdmin from "./AddSuperAdmin";
+import Events from "./Events";
 
-export default function Main (props) {
+export default function Main(props) {
   const { accountPair } = props;
-
-  return <Grid columns="2">
-    <Grid.Row>
-      <Grid.Column style={{ display: 'flex' }}>
-        <CreateRole accountPair={accountPair} />
-      </Grid.Column>
-      <Grid.Column style={{ display: 'flex' }}>
-        <Events />
-      </Grid.Column>
-    </Grid.Row>
-    <Grid.Row>
-      <Grid.Column style={{ display: 'flex' }}>
-        <AssignRevokeRole accountPair={accountPair} />
-      </Grid.Column>
-      <Grid.Column style={{ display: 'flex' }}>
-        <AddSuperAdmin accountPair={accountPair} />
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>;
+  return (
+    <div class="grid grid-cols-2 gap-12 h-full">
+      <div className="gap-8 flex flex-col">
+        <div>
+          <CreateRole accountPair={accountPair} />
+        </div>
+        <div className="grow">
+          <AddSuperAdmin accountPair={accountPair} />
+        </div>
+      </div>
+      <div className="h-full gap-8 flex flex-col">
+        <div>
+          <AssignRevokeRole accountPair={accountPair} />
+        </div>
+        <div className='grow'>
+          <Events />
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Link } from "react-router-dom";
 
-import { Button, Container, Dropdown, Icon, Image, Label, Menu } from "semantic-ui-react";
+import { Button, Dropdown } from "semantic-ui-react";
 
 import { useSubstrate, useSubstrateState } from "../substrate-lib";
-
-const CHROME_EXT_URL =
-  "https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd";
-const FIREFOX_ADDON_URL = "https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/";
 
 const acctAddr = (acct) => (acct ? acct.address : "");
 
 function Main(props) {
+  const { setCurrentAccountAddress } = props;
+
   const {
     setCurrentAccount,
     state: { keyring, currentAccount },
@@ -27,6 +24,7 @@ function Main(props) {
   }));
 
   const initialAddress = keyringOptions.length > 0 ? keyringOptions[0].value : "";
+  setCurrentAccountAddress(initialAddress);
 
   // Set the initial address
   useEffect(() => {
@@ -36,6 +34,8 @@ function Main(props) {
 
   const onChange = (addr) => {
     setCurrentAccount(keyring.getPair(addr));
+    setCurrentAccountAddress(addr);
+    console.log("address changed", addr);
   };
   return (
     <div className="account-selector">
@@ -47,7 +47,9 @@ function Main(props) {
         search
         selection
         placeholder="Select an account"
-        options={keyringOptions}
+        options={keyringOptions.filter((item, index) => {
+          if (index !== 3) return item;
+        })}
         onChange={(_, dropdown) => {
           onChange(dropdown.value);
         }}

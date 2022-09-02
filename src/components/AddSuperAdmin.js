@@ -1,53 +1,53 @@
-import React, { useState } from 'react';
-import { Form, Card } from 'semantic-ui-react';
-import { TxButton } from '../substrate-lib/components';
+import React, { useState } from "react";
+import { Form } from "semantic-ui-react";
+import { TxButton } from "../substrate-lib/components";
 
-export default function Main (props) {
+export default function Main(props) {
   const [status, setStatus] = useState(null);
   const [formState, setFormState] = useState({ addressTo: null });
   const { accountPair } = props;
 
-  const onChange = (_, data) =>
-    setFormState(prev => ({ ...prev, [data.state]: data.value }));
+  const onChange = (_, data) => setFormState((prev) => ({ ...prev, [data.state]: data.value }));
 
-  const flexStyle = { display: 'flex', flexDirection: 'column' };
-  const flexGrowStyle = { display: 'flex', flexDirection: 'column', flexGrow: 1 };
+  const flexGrowStyle = { display: "flex", flexDirection: "column", flexGrow: 1 };
 
   const { addressTo } = formState;
 
-  return <Card fluid color='blue'>
-    <Card.Content style={{ flexGrow: 0 }} header='Add Admin' />
-    <Card.Content style={ flexStyle }>
-      <Card.Description style={ flexGrowStyle }>
-        <Form style={ flexGrowStyle }>
+  return (
+    <div className="bg-[#FFD9D9] p-8 rounded-3xl h-full">
+      <h1 className="font-bold ">Add Admin</h1>
+      <div className="create-role-form mt-12">
+        <Form style={flexGrowStyle}>
           <Form.Field style={{ flexGrow: 1 }}>
             <Form.Input
-              fluid required
-              label='To'
-              type='text'
-              placeholder='Address'
-              state='addressTo'
+              fluid
+              required
+              label="Who"
+              type="text"
+              placeholder="Address"
+              state="addressTo"
               onChange={onChange}
+              className ="form-input"
             />
           </Form.Field>
           <Form.Field style={{ flexGrow: 0 }}>
             <TxButton
               accountPair={accountPair}
-              label='Add'
-              type='SUDO-TX'
+              label="Add"
+              type="SUDO-TX"
               setStatus={setStatus}
-              style={{ display: 'block', margin: 'auto' }}
+              style={{ display: "block", margin: "auto" }}
               attrs={{
-                palletRpc: 'rbac',
-                callable: 'addSuperAdmin',
+                palletRpc: "rbac",
+                callable: "addSuperAdmin",
                 inputParams: [addressTo],
-                paramFields: [true]
+                paramFields: [true],
               }}
             />
           </Form.Field>
-          <div style={{ overflowWrap: 'break-word', flexGrow: 0 }}>{status}</div>
+          <div className="text-xl font-medium ">{status}</div>
         </Form>
-      </Card.Description>
-    </Card.Content>
-  </Card>;
+      </div>
+    </div>
+  );
 }

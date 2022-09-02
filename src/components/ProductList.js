@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Table, Message } from 'semantic-ui-react';
 import { u8aToString } from '@polkadot/util';
 
-import { useSubstrate } from '../substrate-lib';
+import { useSubstrateState } from '../substrate-lib';
 
 export default function Main (props) {
   const { organization } = props;
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

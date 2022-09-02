@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-react';
-import { useSubstrate } from '../substrate-lib';
 import { hexToString, u8aToString } from '@polkadot/util';
+import React, { useEffect, useState } from 'react';
+import { Container, Grid, Header, Icon, List, Segment, Step } from 'semantic-ui-react';
+import { useSubstrate, useSubstrateState } from '../substrate-lib';
 
 import ShipmentOperations from './ShipmentOperations';
 
 function ShipmentDetailsComponent (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   const [shipment, setShipment] = useState(null);
   const [eventIndices, setEventIndices] = useState([]);
   const [events, setEvents] = useState([]);
@@ -192,6 +192,6 @@ function ShipmentDetailsComponent (props) {
 }
 
 export default function ShipmentDetails (props) {
-  const { api } = useSubstrate();
+  const { api } = useSubstrateState();
   return api ? <ShipmentDetailsComponent {...props} /> : null;
 }

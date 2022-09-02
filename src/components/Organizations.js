@@ -18,7 +18,7 @@ export default function Main(props) {
         </div>
       </div>
       <div className="flex">
-        <Events />
+        <Events maxHeight={"100%"}/>
       </div>
     </div>
   );
