@@ -34,7 +34,7 @@ export default function Main(props) {
               setStatus={setStatus}
               style={{ display: "block", margin: "auto" }}
               attrs={{
-                palletRpc: "registrar",
+                palletRpc: "organizations",
                 callable: "addToOrganization",
                 inputParams: [addressTo],
                 paramFields: [true],

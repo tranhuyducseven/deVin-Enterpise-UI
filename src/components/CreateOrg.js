@@ -24,7 +24,7 @@ export default function CreateOrg(props) {
               setStatus={setStatus}
               style={{ display: "block", margin: "auto" }}
               attrs={{
-                palletRpc: "registrar",
+                palletRpc: "organizations",
                 callable: "createOrganization",
                 inputParams: [orgName],
                 paramFields: [true],

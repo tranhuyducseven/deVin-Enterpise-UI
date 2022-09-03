@@ -13,7 +13,7 @@ export default function Main (props) {
     let unsub = null;
 
     async function shipments (organization) {
-      unsub = await api.query.productTracking.shipmentsOfOrganization(organization, data => {
+      unsub = await api.query.tracking.shipmentsOfOrganization(organization, data => {
         setShipments(data);
         setSelectedShipment('');
         setSelected('');
@@ -29,7 +29,7 @@ export default function Main (props) {
     }
 
     return () => unsub && unsub();
-  }, [organization, api.query.productTracking, setSelectedShipment]);
+  }, [organization, api.query.tracking, setSelectedShipment]);
 
   const handleSelectionClick = (ev, { data }) => {
     const shipment = hexToString(shipments[data].toString());

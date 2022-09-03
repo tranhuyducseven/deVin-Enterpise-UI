@@ -13,10 +13,11 @@ export default function Main(props) {
 
   useEffect(() => {
     let unsub = null;
+    
 
     const getProducts = async () => {
-      unsub = await api.query.productRegistry.productsOfOrganization(organization, (productIds) => {
-        api.query.productRegistry.products.multi(productIds, (products) => {
+      unsub = await api.query.products.productsOfOrganization(organization, (productIds) => {
+        api.query.products.products.multi(productIds, (products) => {
           const validProducts = products.filter((product) => !product.isNone).map((product) => product.unwrap());
           setProducts(validProducts);
         });

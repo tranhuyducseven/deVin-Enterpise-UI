@@ -17,7 +17,7 @@ function ShipmentDetailsComponent(props) {
     let unsubscribe;
 
     async function shipment(shipmentId) {
-      await api.query.productTracking.shipments(shipmentId, async (data) => {
+      await api.query.palletTracking.shipments(shipmentId, async (data) => {
         if (!data || !data.value || !data.value.owner) {
           return;
         }
@@ -39,13 +39,13 @@ function ShipmentDetailsComponent(props) {
       setShipment(null);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.palletDid, api.query.productTracking, api.registry, shipmentId]);
+  }, [api.query.palletDid, api.query.palletTracking, api.registry, shipmentId]);
 
   useEffect(() => {
     let unsubscribe;
 
     async function eventsOfShipment(shipmentId) {
-      await api.query.productTracking.eventsOfShipment(shipmentId, (data) =>
+      await api.query.palletTracking.eventsOfShipment(shipmentId, (data) =>
         setEventIndices(data ? data.map((x) => x.toNumber()) : [])
       );
     }
@@ -56,13 +56,13 @@ function ShipmentDetailsComponent(props) {
       setEventIndices([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.productTracking, shipmentId]);
+  }, [api.query.palletTracking, shipmentId]);
 
   useEffect(() => {
     let unsubscribe;
 
     async function allEvents(eventIndices) {
-      const futures = eventIndices.map((idx) => api.query.productTracking.allEvents(idx));
+      const futures = eventIndices.map((idx) => api.query.palletTracking.allEvents(idx));
       Promise.all(futures)
         .then((data) => {
           if (data) {
@@ -81,13 +81,13 @@ function ShipmentDetailsComponent(props) {
       setEvents([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.productTracking, eventIndices]);
+  }, [api.query.palletTracking, eventIndices]);
 
   useEffect(() => {
     let unsubscribe;
 
     async function products(shipment) {
-      const futures = shipment.products.map((productId) => api.query.productRegistry.products(productId.toString()));
+      const futures = shipment.products.map((productId) => api.query.palletProducts.products(productId.toString()));
       Promise.all(futures)
         .then((data) => {
           if (data) {
@@ -115,7 +115,7 @@ function ShipmentDetailsComponent(props) {
       setProducts([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.productRegistry, shipment]);
+  }, [api.query.palletProducts, shipment]);
 
   return shipment != null ? (
     <Container style={{ marginTop: "2em" }}>

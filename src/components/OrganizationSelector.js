@@ -16,7 +16,7 @@ export default function Main(props) {
     const addr = accountPair ? accountPair.address : null;
 
     async function membersOf(addr) {
-      unsub2 = await api.query.registrar.membersOf(addr, (rawData) => {
+      unsub2 = await api.query.organizations.membersOf(addr, (rawData) => {
         const orgs = rawData.map((r) => ({ value: r.toString(), text: r.toString() }));
 
         const defaultOrg = orgs.length > 0 ? orgs[0].value : "";
@@ -27,7 +27,7 @@ export default function Main(props) {
     }
 
     async function organizations(addr) {
-      unsub1 = await api.query.registrar.organizations(async (rawData) => {
+      unsub1 = await api.query.organizations.organizations(async (rawData) => {
         const strData = rawData.map((r) => r.toString());
 
         if (strData.includes(addr)) {
@@ -49,7 +49,7 @@ export default function Main(props) {
       unsub1 && unsub1();
       unsub2 && unsub2();
     };
-  }, [accountPair, api.query.palletDid, api.query.registrar, api.registry, setSelectedOrganization]);
+  }, [accountPair, api.query.palletDid, api.query.organizations, api.registry, setSelectedOrganization]);
 
   const onChange = (org) => {
     setSelected(org);

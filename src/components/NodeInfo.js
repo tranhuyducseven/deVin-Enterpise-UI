@@ -6,6 +6,7 @@ import { useSubstrateState } from "../substrate-lib";
 function Main(props) {
   const { api, socket } = useSubstrateState();
   const [nodeInfo, setNodeInfo] = useState({});
+  console.log("nodeInfo:", nodeInfo);
 
   useEffect(() => {
     const getInfo = async () => {

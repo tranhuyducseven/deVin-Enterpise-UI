@@ -19,10 +19,10 @@ function RegisterShipmentFormComponent(props) {
   });
 
   const updateParamFields = () => {
-    if (!api.tx.productTracking) {
+    if (!api.tx.palletTracking) {
       return;
     }
-    const paramFields = api.tx.productTracking.registerShipment.meta.args.map((arg) => ({
+    const paramFields = api.tx.palletTracking.registerShipment.meta.args.map((arg) => ({
       name: arg.name.toString(),
       type: arg.type.toString(),
     }));
@@ -35,12 +35,13 @@ function RegisterShipmentFormComponent(props) {
     let unsub = null;
 
     async function productsOfOrg(organization) {
-      unsub = await api.query.productRegistry.productsOfOrganization(organization, (data) => setProducts(data));
+      unsub = await api.query.products.productsOfOrganization(organization, (data) => setProducts(data));
+      console.log.apply("api: ", api)
     }
 
     if (organization) productsOfOrg(organization);
     return () => unsub && unsub();
-  }, [api.query.productRegistry, organization]);
+  }, [api.query.products, organization]);
 
   // For updating the Owner field
   useEffect(() => {
@@ -123,7 +124,7 @@ function RegisterShipmentFormComponent(props) {
               style={{ display: "block", margin: "auto" }}
               setStatus={setStatus}
               attrs={{
-                palletRpc: "productTracking",
+                palletRpc: "palletTracking",
                 callable: "registerShipment",
                 inputParams: [
                   state.shipmentId,

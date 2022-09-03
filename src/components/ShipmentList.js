@@ -15,8 +15,8 @@ export default function Main(props) {
     let unsub = null;
 
     async function shipments(organization) {
-      unsub = await api.query.productTracking.shipmentsOfOrganization(organization, (shipmentIds) => {
-        api.query.productTracking.shipments.multi(shipmentIds, (shipments) => {
+      unsub = await api.query.tracking.shipmentsOfOrganization(organization, (shipmentIds) => {
+        api.query.tracking.shipments.multi(shipmentIds, (shipments) => {
           const validShipments = shipments.filter((shipment) => !shipment.isNone).map((shipment) => shipment.unwrap());
           setShipments(validShipments);
         });
@@ -30,7 +30,7 @@ export default function Main(props) {
     }
 
     return () => unsub && unsub();
-  }, [organization, api.query.productTracking]);
+  }, [organization, api.query.tracking]);
 
   if (!shipments || shipments.length === 0) {
     return (
