@@ -1,36 +1,40 @@
-import React, { useState, Fragment } from 'react';
-import { Container, Divider, Grid } from 'semantic-ui-react';
+import React, { useState } from "react";
 
-import Events from './Events';
-import OrganizationSelector from './OrganizationSelector';
-import ShipmentSelection from './ShipmentSelection';
-import ShipmentDetails from './ShipmentDetails';
+import Events from "./Events";
+import OrganizationSelector from "./OrganizationSelector";
+import ShipmentDetails from "./ShipmentDetails";
+import ShipmentSelection from "./ShipmentSelection";
 
-export default function Main (props) {
+export default function Main(props) {
   const { accountPair } = props;
-  const [selectedOrganization, setSelectedOrganization] = useState('');
-  const [selectedShipment, setSelectedShipment] = useState('');
+  const [selectedOrganization, setSelectedOrganization] = useState("");
+  const [selectedShipment, setSelectedShipment] = useState("");
 
   return (
-    <Container>
-      <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization}/>
-      <Grid columns="2">
-        <Grid.Column width={8} style={{ display: 'flex' }}>
-          <ShipmentSelection accountPair={accountPair}
+    <div className="products relative h-full">
+      <div>
+        <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization} />
+      </div>
+      <div className="grid grid-cols-2 gap-12 mt-6">
+        <div className="grow">
+          <ShipmentSelection
+            accountPair={accountPair}
             organization={selectedOrganization}
-            setSelectedShipment={setSelectedShipment} />
-        </Grid.Column>
-        <Grid.Column width={8} style={{ display: 'flex' }}>
+            setSelectedShipment={setSelectedShipment}
+          />
+        </div>
+        <div className="grow">
           <Events />
-        </Grid.Column>
-      </Grid>
-      { selectedShipment
-        ? <Fragment>
-          <Divider style={{ marginTop: '2em' }} />
-          <ShipmentDetails accountPair={accountPair} shipmentId={selectedShipment} />
-        </Fragment>
-        : null
-      }
-    </Container>
+        </div>
+      </div>
+
+      <div className="shipments-details mt-4 bg-white">
+        {selectedShipment ? (
+          <div className="mt-4">
+            <ShipmentDetails accountPair={accountPair} shipmentId={selectedShipment} />
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }

@@ -35,7 +35,6 @@ function Main(props) {
   const onChange = (addr) => {
     setCurrentAccount(keyring.getPair(addr));
     setCurrentAccountAddress(addr);
-    console.log("address changed", addr);
   };
   return (
     <div className="account-selector">

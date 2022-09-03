@@ -23,7 +23,7 @@ export default function Main(props) {
         </div>
       </div>
 
-      <div className="products-list mt-4 bg-white">
+      <div className="shipments-list mt-4 bg-white">
         <h1 className="text-2xl">Shipment Listing</h1>
         <ShipmentList accountPair={accountPair} organization={selectedOrganization} />
       </div>
