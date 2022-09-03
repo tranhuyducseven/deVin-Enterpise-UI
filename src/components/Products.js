@@ -19,7 +19,7 @@ export default function Main(props) {
           <RegisterProductForm accountPair={accountPair} organization={selectedOrganization} />
         </div>
         <div className="grow">
-          <Events maxHeight={"100%"} isProduct/>
+          <Events maxHeight={"100%"} small/>
         </div>
       </div>
 

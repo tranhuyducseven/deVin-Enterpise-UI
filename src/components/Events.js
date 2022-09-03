@@ -10,7 +10,7 @@ const FILTERED_EVENTS = [
 ];
 
 function Main(props) {
-  const isProduct = props.isProduct;
+  const small = props.small;
   const maxHeight = props.maxHeight || 200;
   const { api } = useSubstrateState();
   const [eventFeed, setEventFeed] = useState([]);
@@ -53,7 +53,7 @@ function Main(props) {
   return (
     <div className="events bg-black w-full p-8 rounded-3xl font-bold h-full overflow-hidden">
       <div className="header relative">
-        <h1 className={`text-white ${isProduct ? "text-2xl" : ""}`}>Events</h1>
+        <h1 className={`text-white ${small ? "text-2xl" : ""}`}>Events</h1>
         <Button
           basic
           circular
