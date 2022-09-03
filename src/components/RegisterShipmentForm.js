@@ -124,7 +124,7 @@ function RegisterShipmentFormComponent(props) {
               style={{ display: "block", margin: "auto" }}
               setStatus={setStatus}
               attrs={{
-                palletRpc: "palletTracking",
+                palletRpc: "tracking",
                 callable: "registerShipment",
                 inputParams: [
                   state.shipmentId,

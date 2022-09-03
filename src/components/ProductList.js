@@ -13,7 +13,6 @@ export default function Main(props) {
 
   useEffect(() => {
     let unsub = null;
-    
 
     const getProducts = async () => {
       unsub = await api.query.products.productsOfOrganization(organization, (productIds) => {
@@ -41,9 +40,9 @@ export default function Main(props) {
   }
 
   const handlePaginationChange = (_, data) => {
-    setActivePage(data.activePage);   
+    setActivePage(data.activePage);
   };
-
+  const totalPages = Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS);
   return (
     <div>
       <Table celled striped size="large" className="!rounded-3xl !text-xl overflow-hidden">
@@ -56,30 +55,34 @@ export default function Main(props) {
         </Table.Header>
 
         <Table.Body>
-          {products.slice((activePage - 1) * NUMBER_OF_RENDERED_ITEMS, activePage * NUMBER_OF_RENDERED_ITEMS).map((product) => {
-            const id = u8aToString(product.id);
-            const props = product.props.unwrap();
-            return (
-              <Table.Row key={id}>
-                <Table.Cell className="!p-4 hover:border-[#ffdd50]">{id}</Table.Cell>
-                <Table.Cell className="!p-4 hover:border-[#ffdd50]">{product.owner.toString()}</Table.Cell>
-                <Table.Cell className="!p-4 hover:border-[#ffdd50]">{u8aToString(props[0].value)}</Table.Cell>
-              </Table.Row>
-            );
-          })}
+          {products
+            .slice((activePage - 1) * NUMBER_OF_RENDERED_ITEMS, activePage * NUMBER_OF_RENDERED_ITEMS)
+            .map((product) => {
+              const id = u8aToString(product.id);
+              const props = product.props.unwrap();
+              return (
+                <Table.Row key={id}>
+                  <Table.Cell className="!p-4 hover:border-[#ffdd50]">{id}</Table.Cell>
+                  <Table.Cell className="!p-4 hover:border-[#ffdd50]">{product.owner.toString()}</Table.Cell>
+                  <Table.Cell className="!p-4 hover:border-[#ffdd50]">{u8aToString(props[0].value)}</Table.Cell>
+                </Table.Row>
+              );
+            })}
         </Table.Body>
       </Table>
       <div className="flex justify-end absolute bottom-[0px] right-0">
-        <Pagination
-          ellipsisItem={false}
-          firstItem={false}
-          lastItem={false}
-          prevItem={{ content: <Icon name="angle left" />, icon: true }}
-          nextItem={{ content: <Icon name="angle right" />, icon: true }}
-          defaultActivePage={activePage}
-          totalPages={Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS)}
-          onPageChange={handlePaginationChange}
-        />
+        {totalPages > 1 && (
+          <Pagination
+            ellipsisItem={false}
+            firstItem={false}
+            lastItem={false}
+            prevItem={{ content: <Icon name="angle left" />, icon: true }}
+            nextItem={{ content: <Icon name="angle right" />, icon: true }}
+            defaultActivePage={activePage}
+            totalPages={totalPages}
+            onPageChange={handlePaginationChange}
+          />
+        )}
       </div>
     </div>
   );

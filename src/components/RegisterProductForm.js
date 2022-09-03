@@ -50,7 +50,7 @@ export default function RegisterProductForm(props) {
               style={{ display: "block", margin: "auto" }}
               setStatus={setStatus}
               attrs={{
-                palletRpc: "productRegistry",
+                palletRpc: "products",
                 callable: "registerProduct",
                 inputParams: [params.id, organization, params.props],
                 paramFields: [true, true, true],

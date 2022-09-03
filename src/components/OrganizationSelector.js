@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Segment, Form } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import { useSubstrateState } from "../substrate-lib";
 
 import { u8aToString } from "@polkadot/util";
@@ -9,6 +9,7 @@ export default function Main(props) {
   const { accountPair, setSelectedOrganization } = props;
   const [organizations, setOrganizations] = useState([]);
   const [selected, setSelected] = useState("");
+ 
 
   useEffect(() => {
     let unsub1 = null;
@@ -27,9 +28,10 @@ export default function Main(props) {
     }
 
     async function organizations(addr) {
+      console.log("address: " + addr);
       unsub1 = await api.query.organizations.organizations(async (rawData) => {
         const strData = rawData.map((r) => r.toString());
-
+        membersOf(addr);
         if (strData.includes(addr)) {
           // Current account is an org
           const nonce = await api.query.palletDid.attributeNonce([addr, "Org"]);
@@ -55,7 +57,7 @@ export default function Main(props) {
     setSelected(org);
     setSelectedOrganization(org);
   };
- 
+
   return (
     <div className="bg-[#DADADA] p-4 rounded-3xl">
       <h1 className="font-bold m-1 text-lg">Organization</h1>

@@ -15,6 +15,7 @@ export default function Main(props) {
     let unsub = null;
 
     async function shipments(organization) {
+      console.log("api :", api);
       unsub = await api.query.tracking.shipmentsOfOrganization(organization, (shipmentIds) => {
         api.query.tracking.shipments.multi(shipmentIds, (shipments) => {
           const validShipments = shipments.filter((shipment) => !shipment.isNone).map((shipment) => shipment.unwrap());
@@ -43,6 +44,7 @@ export default function Main(props) {
   const handlePaginationChange = (_, data) => {
     setActivePage(data.activePage);
   };
+  const totalPages = Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS);
 
   return (
     <div>
@@ -78,16 +80,18 @@ export default function Main(props) {
         </Table.Body>
       </Table>
       <div className="flex justify-end absolute bottom-[0px] right-0">
-        <Pagination
-          ellipsisItem={false}
-          firstItem={false}
-          lastItem={false}
-          prevItem={{ content: <Icon name="angle left" />, icon: true }}
-          nextItem={{ content: <Icon name="angle right" />, icon: true }}
-          defaultActivePage={activePage}
-          totalPages={Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS)}
-          onPageChange={handlePaginationChange}
-        />
+        {totalPages > 1 ? (
+          <Pagination
+            ellipsisItem={false}
+            firstItem={false}
+            lastItem={false}
+            prevItem={{ content: <Icon name="angle left" />, icon: true }}
+            nextItem={{ content: <Icon name="angle right" />, icon: true }}
+            defaultActivePage={activePage}
+            totalPages={totalPages}
+            onPageChange={handlePaginationChange}
+          />
+        ) : null}
       </div>
     </div>
   );
