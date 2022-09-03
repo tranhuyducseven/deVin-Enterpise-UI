@@ -10,11 +10,11 @@ export default function Main(props) {
   const [selectedOrganization, setSelectedOrganization] = useState("");
 
   return (
-    <div className="products relative">
+    <div className="products relative h-full">
       <div>
         <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization} />
       </div>
-      <div className="grid grid-cols-2 gap-12 h-full mt-6">
+      <div className="grid grid-cols-2 gap-12 mt-6">
         <div className="grow">
           <RegisterProductForm accountPair={accountPair} organization={selectedOrganization} />
         </div>

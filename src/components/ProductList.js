@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Icon, Message, Pagination, Table } from "semantic-ui-react";
 
 import { useSubstrateState } from "../substrate-lib";
-const numberOfRendersItems = 4;
+const NUMBER_OF_RENDERED_ITEMS = 4;
 
 export default function Main(props) {
   const { organization } = props;
@@ -40,10 +40,7 @@ export default function Main(props) {
   }
 
   const handlePaginationChange = (_, data) => {
-    setActivePage(data.activePage);
-    console.log("activePage: ", data.activePage);
-    console.log("activePage: ", activePage);
-    console.log("products: " + products);
+    setActivePage(data.activePage);   
   };
 
   return (
@@ -58,7 +55,7 @@ export default function Main(props) {
         </Table.Header>
 
         <Table.Body>
-          {products.slice((activePage - 1) * numberOfRendersItems, activePage * numberOfRendersItems).map((product) => {
+          {products.slice((activePage - 1) * NUMBER_OF_RENDERED_ITEMS, activePage * NUMBER_OF_RENDERED_ITEMS).map((product) => {
             const id = u8aToString(product.id);
             const props = product.props.unwrap();
             return (
@@ -71,7 +68,7 @@ export default function Main(props) {
           })}
         </Table.Body>
       </Table>
-      <div className="flex justify-end absolute -bottom-[60px] right-0">
+      <div className="flex justify-end absolute bottom-[0px] right-0">
         <Pagination
           ellipsisItem={false}
           firstItem={false}
@@ -79,7 +76,7 @@ export default function Main(props) {
           prevItem={{ content: <Icon name="angle left" />, icon: true }}
           nextItem={{ content: <Icon name="angle right" />, icon: true }}
           defaultActivePage={activePage}
-          totalPages={Math.ceil(products.length / numberOfRendersItems)}
+          totalPages={Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS)}
           onPageChange={handlePaginationChange}
         />
       </div>
