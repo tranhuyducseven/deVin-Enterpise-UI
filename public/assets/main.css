@@ -203,9 +203,9 @@ a {
   border: 1px solid black !important;
 }
 .ui.dropdown .menu > .item {
-  font-size: 1.325rem!important;
-  line-height: 1.75rem!important;
-  font-weight: 600!important;
+  font-size: 1.325rem !important;
+  line-height: 1.75rem !important;
+  font-weight: 600 !important;
 }
 .ui.basic.button.default-button {
   background-color: #f8fafc !important;
@@ -245,7 +245,7 @@ a {
 .ui.feed.events-feed > .event > .content {
   height: 100% !important;
   margin: 0 !important;
-  padding:  0 0 0 4px!important;
+  padding: 0 0 0 4px !important;
 }
 .ui.feed.events-feed > .event > .content,
 .ui.feed.events-feed > .event > .content > .summary,
@@ -253,4 +253,21 @@ a {
   font-size: 1.5rem !important;
   line-height: 2rem !important;
   color: white;
+}
+
+.selected-organization > .ui.form .field.form-input > .selection.dropdown {
+  /* text-base*/
+  font-size: 1rem !important; /* 16px */
+  line-height: 1.5rem !important; /* 24px */
+}
+
+.create-product-form .ui.form .field.form-input label {
+  font-size: 1.125rem !important; /* 18px */
+  line-height: 1.75rem !important; /* 28px */
+}
+
+.create-product-form .ui.form .field.form-input input {
+  padding: 8px !important;
+  font-size: 1rem !important; /* 16px */
+  line-height: 1.5rem !important; /* 24px */
 }

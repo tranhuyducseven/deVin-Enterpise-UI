@@ -8,7 +8,7 @@ import Events from "./Events";
 export default function Main(props) {
   const { accountPair } = props;
   return (
-    <div class="grid grid-cols-2 gap-12 h-full">
+    <div className="grid grid-cols-2 gap-12 h-full">
       <div className="flex flex-col h-full gap-y-12">
         <div className="h-1/2">
           <CreateOrg accountPair={accountPair} />

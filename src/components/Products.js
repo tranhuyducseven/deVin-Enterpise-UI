@@ -1,38 +1,32 @@
-import React, { useState, Fragment } from 'react';
-import { Header, Grid, Divider } from 'semantic-ui-react';
+import React, { useState } from "react";
 
-import Events from './Events';
-import OrganizationSelector from './OrganizationSelector';
-import ProductList from './ProductList';
-import RegisterProductForm from './RegisterProductForm';
+import Events from "./Events";
+import OrganizationSelector from "./OrganizationSelector";
+import ProductList from "./ProductList";
+import RegisterProductForm from "./RegisterProductForm";
 
-export default function Main (props) {
+export default function Main(props) {
   const { accountPair } = props;
-  const [selectedOrganization, setSelectedOrganization] = useState('');
+  const [selectedOrganization, setSelectedOrganization] = useState("");
 
-  return <Fragment>
-    <Grid>
-      <Grid.Row>
-        <Grid.Column width={16}>
-          <OrganizationSelector
-            accountPair={accountPair}
-            setSelectedOrganization={setSelectedOrganization}
-          />
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={8} style={{ display: 'flex' }}>
-          <RegisterProductForm accountPair={accountPair}
-            organization={selectedOrganization} />
-        </Grid.Column>
-        <Grid.Column width={8} style={{ display: 'flex' }}>
-          <Events />
-        </Grid.Column>
-      </Grid.Row>
+  return (
+    <div className="products relative">
+      <div>
+        <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization} />
+      </div>
+      <div className="grid grid-cols-2 gap-12 h-full mt-6">
+        <div className="grow">
+          <RegisterProductForm accountPair={accountPair} organization={selectedOrganization} />
+        </div>
+        <div className="grow">
+          <Events maxHeight={"100%"} isProduct/>
+        </div>
+      </div>
 
-    </Grid>
-    <Divider style={{ marginTop: '2em' }} />
-    <Header as='h2'>Product Listing</Header>
-    <ProductList accountPair={accountPair} organization={selectedOrganization} />
-  </Fragment>;
+      <div className="products-list mt-4 bg-white">
+        <h1 className="text-2xl">Product Listing</h1>
+        <ProductList accountPair={accountPair} organization={selectedOrganization} />
+      </div>
+    </div>
+  );
 }

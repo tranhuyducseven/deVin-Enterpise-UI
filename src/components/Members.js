@@ -8,7 +8,7 @@ import Events from "./Events";
 export default function Main(props) {
   const { accountPair } = props;
   return (
-    <div class="grid grid-cols-2 gap-12 h-full">
+    <div className="grid grid-cols-2 gap-12 h-full">
       <div className="gap-8 flex flex-col">
         <div>
           <CreateRole accountPair={accountPair} />

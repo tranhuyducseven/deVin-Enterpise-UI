@@ -1,61 +1,65 @@
-import React, { useState } from 'react';
-import { Card, Form } from 'semantic-ui-react';
-import { stringToHex } from '@polkadot/util';
+import { stringToHex } from "@polkadot/util";
+import React, { useState } from "react";
+import { Form } from "semantic-ui-react";
 
-import { TxButton } from '../substrate-lib/components';
+import { TxButton } from "../substrate-lib/components";
 
-export default function RegisterProductForm (props) {
+export default function RegisterProductForm(props) {
   const { accountPair, organization } = props;
   const [status, setStatus] = useState([]);
   const [params, setParams] = useState({ id: null, props: null });
 
   const onChange = (_, data) => {
     const newParams = { ...params };
-    if (data.state === 'id') {
-      newParams.id = (data.value.length === 0 ? null : stringToHex(data.value));
-    } else if (data.state === 'desc') {
-      newParams.props = (data.value.length === 0 ? null : [['0x64657363', stringToHex(data.value)]]);
+    if (data.state === "id") {
+      newParams.id = data.value.length === 0 ? null : stringToHex(data.value);
+    } else if (data.state === "desc") {
+      newParams.props = data.value.length === 0 ? null : [["0x64657363", stringToHex(data.value)]];
     }
     setParams(newParams);
   };
 
-  return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }} header = 'Register a Product' />
-    <Card.Content>
-      <Card.Description>
+  return (
+    <div className="bg-[#93d9f8] p-8 rounded-3xl h-full">
+      <h1 className="font-bold text-2xl">Register a Product</h1>
+      <div className="create-product-form mt-4">
         <Form>
           <Form.Input
-            fluid required
-            label='Product ID'
-            name='productId'
-            state='id'
+            fluid
+            required
+            label="Product ID"
+            name="productId"
+            state="id"
             onChange={onChange}
+            className="form-input"
           />
           <Form.Input
-            fluid required
-            label='Description'
-            name='productDesc'
-            state='desc'
+            fluid
+            required
+            label="Description"
+            name="productDesc"
+            state="desc"
             onChange={onChange}
+            className="form-input"
           />
           <Form.Field>
             <TxButton
               accountPair={accountPair}
-              label='Register'
-              type='SIGNED-TX'
-              style={{ display: 'block', margin: 'auto' }}
+              label="Register"
+              type="SIGNED-TX"
+              style={{ display: "block", margin: "auto" }}
               setStatus={setStatus}
               attrs={{
-                palletRpc: 'productRegistry',
-                callable: 'registerProduct',
+                palletRpc: "productRegistry",
+                callable: "registerProduct",
                 inputParams: [params.id, organization, params.props],
-                paramFields: [true, true, true]
+                paramFields: [true, true, true],
               }}
             />
           </Form.Field>
-          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+          <div className="text-xl font-medium ">{status}</div>
         </Form>
-      </Card.Description>
-    </Card.Content>
-  </Card>;
+      </div>
+    </div>
+  );
 }

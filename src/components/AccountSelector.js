@@ -61,5 +61,5 @@ function Main(props) {
 
 export default function AccountSelector(props) {
   const { api, keyring } = useSubstrateState();
-  return keyring.getPairs && api.query ? <Main {...props} /> : null;
+  return keyring.getPairs() && api.query ? <Main {...props} /> : null;
 }

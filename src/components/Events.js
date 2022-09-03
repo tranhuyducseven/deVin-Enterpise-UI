@@ -10,6 +10,7 @@ const FILTERED_EVENTS = [
 ];
 
 function Main(props) {
+  const isProduct = props.isProduct;
   const maxHeight = props.maxHeight || 200;
   const { api } = useSubstrateState();
   const [eventFeed, setEventFeed] = useState([]);
@@ -49,11 +50,10 @@ function Main(props) {
     return () => unsub && unsub();
   }, [api.query.system]);
 
-
   return (
     <div className="events bg-black w-full p-8 rounded-3xl font-bold h-full overflow-hidden">
       <div className="header relative">
-        <h1 className="text-white">Events</h1>
+        <h1 className={`text-white ${isProduct ? "text-2xl" : ""}`}>Events</h1>
         <Button
           basic
           circular
@@ -66,8 +66,12 @@ function Main(props) {
         />
       </div>
 
-      <div className="content mt-4" style={{maxHeight}}>
-        <Feed className="events-feed text-white text-2xl " style={{ clear: 'both', overflow: 'auto', maxHeight }}  events={eventFeed} />
+      <div className="content mt-4" style={{ maxHeight }}>
+        <Feed
+          className="events-feed text-white text-2xl "
+          style={{ clear: "both", overflow: "auto", maxHeight }}
+          events={eventFeed}
+        />
       </div>
     </div>
   );
@@ -77,4 +81,3 @@ export default function Events(props) {
   const { api } = useSubstrateState();
   return api.query && api.query.system && api.query.system.events ? <Main {...props} /> : null;
 }
-
