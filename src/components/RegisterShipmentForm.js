@@ -19,10 +19,10 @@ function RegisterShipmentFormComponent(props) {
   });
 
   const updateParamFields = () => {
-    if (!api.tx.palletTracking) {
+    if (!api.tx.tracking) {
       return;
     }
-    const paramFields = api.tx.palletTracking.registerShipment.meta.args.map((arg) => ({
+    const paramFields = api.tx.tracking.registerShipment.meta.args.map((arg) => ({
       name: arg.name.toString(),
       type: arg.type.toString(),
     }));
@@ -36,7 +36,6 @@ function RegisterShipmentFormComponent(props) {
 
     async function productsOfOrg(organization) {
       unsub = await api.query.products.productsOfOrganization(organization, (data) => setProducts(data));
-      console.log.apply("api: ", api)
     }
 
     if (organization) productsOfOrg(organization);
@@ -51,9 +50,12 @@ function RegisterShipmentFormComponent(props) {
       }
 
       const nonce = await api.query.palletDid.attributeNonce([organization, "Org"]);
+
       const attrHash = api.registry.createType("(AccountId, Text, u64)", [organization, "Org", nonce.subn(1)]).hash;
       const orgAttr = await api.query.palletDid.attributeOf([organization, attrHash]);
       setState((state) => ({ ...state, owner: u8aToString(orgAttr.value) }));
+      
+
     }
 
     setOwner();
@@ -63,6 +65,8 @@ function RegisterShipmentFormComponent(props) {
   useEffect(() => {
     if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
   }, [status]);
+  console.log("organization: " + state.owner);
+
   return (
     <div className="bg-[#abcf7d] p-8 rounded-3xl h-full">
       <h1 className="font-bold text-2xl">Register a Shipment</h1>
@@ -77,15 +81,7 @@ function RegisterShipmentFormComponent(props) {
             onChange={handleChange}
             className="form-input"
           />
-          <Form.Input
-            className="form-input"
-            name="owner"
-            label="Owner"
-            state="owner"
-            value={state.owner}
-            required
-            onChange={handleChange}
-          />
+          <Form.Input name="owner" label="Owner" state="owner" value={state.owner} required onChange={handleChange} />
           <Form.Dropdown
             placeholder="Select a product"
             fluid
@@ -135,6 +131,7 @@ function RegisterShipmentFormComponent(props) {
                 ],
                 paramFields: paramFields,
               }}
+              className="form-input"
             />
           </Form.Field>
         </Form>

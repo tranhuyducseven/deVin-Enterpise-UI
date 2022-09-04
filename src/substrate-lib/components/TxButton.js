@@ -22,6 +22,7 @@ function TxButton({
   const [sudoKey, setSudoKey] = useState(null);
 
   const { palletRpc, callable, inputParams, paramFields } = attrs;
+ 
 
   const isQuery = () => type === "QUERY";
   const isSudo = () => type === "SUDO-TX";

@@ -19,10 +19,8 @@ export default function Main(props) {
   useEffect(() => {
     let unsub = null;
     const getRoles = async () => {
-      console.log("api: ", api)
       unsub = await api.query.rbac.roles((rawRoles) => {
         const roles = rawRoles.map((r) => r.toJSON()).map((r) => ({ ...r, pallet: hexToString(r.pallet) }));
-        console.log("roles: " + JSON.stringify(roles))
         setRoles(roles);
       });
     };
