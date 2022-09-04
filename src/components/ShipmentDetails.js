@@ -87,7 +87,7 @@ function ShipmentDetailsComponent(props) {
     let unsubscribe;
 
     async function products(shipment) {
-      const futures = shipment.products.map((productId) => api.query.palletProducts.products(productId.toString()));
+      const futures = shipment.products.map((productId) => api.query.products.products(productId.toString()));
       Promise.all(futures)
         .then((data) => {
           if (data) {
@@ -115,7 +115,7 @@ function ShipmentDetailsComponent(props) {
       setProducts([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.palletProducts, shipment]);
+  }, [api.query.products, shipment]);
 
   return shipment != null ? (
     <Container style={{ marginTop: "2em" }}>

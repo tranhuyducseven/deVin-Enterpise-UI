@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Form, Message} from "semantic-ui-react";
 import { TxButton } from "../substrate-lib/components";
 
 export default function Main(props) {
@@ -10,6 +10,9 @@ export default function Main(props) {
   const onChange = (_, data) => setFormState((prev) => ({ ...prev, [data.state]: data.value }));
 
   const { addressTo } = formState;
+  useEffect(() => {
+    if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
+  }, [status]);
 
   return (
     <div className="bg-[#D6EDDA] p-8 rounded-3xl h-full">
@@ -41,8 +44,16 @@ export default function Main(props) {
               }}
             />
           </Form.Field>
-          <div className="text-xl font-medium ">{status}</div>
+          
         </Form>
+      </div>
+      <div className="!fixed !top-6 !left-6">
+        {!!status && (
+          <Message info>
+            <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+            <p className="!text-xl">{status.split(":")[1]}</p>
+          </Message>
+        )}
       </div>
     </div>
   );

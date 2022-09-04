@@ -28,7 +28,6 @@ export default function Main(props) {
     }
 
     async function organizations(addr) {
-      console.log("address: " + addr);
       unsub1 = await api.query.organizations.organizations(async (rawData) => {
         const strData = rawData.map((r) => r.toString());
         membersOf(addr);

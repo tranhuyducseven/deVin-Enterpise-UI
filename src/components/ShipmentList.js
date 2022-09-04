@@ -15,7 +15,7 @@ export default function Main(props) {
     let unsub = null;
 
     async function shipments(organization) {
-      console.log("api :", api);
+      // console.log("api :", api);
       unsub = await api.query.tracking.shipmentsOfOrganization(organization, (shipmentIds) => {
         api.query.tracking.shipments.multi(shipmentIds, (shipments) => {
           const validShipments = shipments.filter((shipment) => !shipment.isNone).map((shipment) => shipment.unwrap());

@@ -1,6 +1,6 @@
 import { hexToString } from "@polkadot/util";
 import React, { useEffect, useState } from "react";
-import { Card, Form } from "semantic-ui-react";
+import { Card, Form, Message } from "semantic-ui-react";
 
 import { useSubstrateState } from "../substrate-lib";
 import { TxButton } from "../substrate-lib/components";
@@ -19,8 +19,10 @@ export default function Main(props) {
   useEffect(() => {
     let unsub = null;
     const getRoles = async () => {
+      console.log("api: ", api)
       unsub = await api.query.rbac.roles((rawRoles) => {
         const roles = rawRoles.map((r) => r.toJSON()).map((r) => ({ ...r, pallet: hexToString(r.pallet) }));
+        console.log("roles: " + JSON.stringify(roles))
         setRoles(roles);
       });
     };
@@ -57,6 +59,9 @@ export default function Main(props) {
     });
   }
 
+  useEffect(() => {
+    if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
+  }, [status]);
   return (
     <div className="bg-[#E5DEF0] p-8 rounded-3xl h-full">
       <h1 className="font-bold ">Assign / Revoke Role</h1>
@@ -108,8 +113,16 @@ export default function Main(props) {
               }}
             />
           </Form.Field>
-          <div className="text-xl font-medium ">{status}</div>
+          
         </Form>
+      </div>
+      <div className="!fixed !top-6 !left-6">
+        {!!status && (
+          <Message info>
+            <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+            <p className="!text-xl">{status.split(":")[1]}</p>
+          </Message>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Form } from "semantic-ui-react";
+import { Card, Form, Message } from "semantic-ui-react";
 
 import { useSubstrateState } from "../substrate-lib";
 import { TxButton } from "../substrate-lib/components";
@@ -58,6 +58,9 @@ function Main(props) {
       return res;
     });
   };
+  useEffect(() => {
+    if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
+  }, [status]);
 
   return (
     <div className="bg-[#E5F2FE] p-8 rounded-3xl h-full">
@@ -100,7 +103,14 @@ function Main(props) {
               }}
             />
           </Form.Field>
-          <div className="text-xl font-medium ">{status}</div>
+          <div className="!fixed !top-6 !left-6">
+        {!!status && (
+          <Message info>
+            <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+            <p className="!text-xl">{status.split(":")[1]}</p>
+          </Message>
+        )}
+      </div>
         </Form>
       </div>
     </div>

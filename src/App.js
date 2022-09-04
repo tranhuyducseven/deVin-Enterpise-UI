@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "semantic-ui-css/semantic.min.css";
 import HomeScreen from "./screens/home";
-import Demo from "./screens/demo";
 import OrganizationScreen from "./screens/organizations";
 
 export default function App() {
@@ -13,9 +12,7 @@ export default function App() {
         <Route path="/app">
           <OrganizationScreen />
         </Route>
-        <Route path="/demo">
-          <Demo />
-        </Route>
+        
         <Route path="/">
           <HomeScreen />
         </Route>

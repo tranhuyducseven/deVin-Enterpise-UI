@@ -1,12 +1,12 @@
 import { stringToHex } from "@polkadot/util";
-import React, { useState } from "react";
-import { Form } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Form, Message } from "semantic-ui-react";
 
 import { TxButton } from "../substrate-lib/components";
 
 export default function RegisterProductForm(props) {
   const { accountPair, organization } = props;
-  const [status, setStatus] = useState([]);
+  const [status, setStatus] = useState(null);
   const [params, setParams] = useState({ id: null, props: null });
 
   const onChange = (_, data) => {
@@ -18,6 +18,9 @@ export default function RegisterProductForm(props) {
     }
     setParams(newParams);
   };
+  useEffect(() => {
+    if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
+  }, [status]);
 
   return (
     <div className="bg-[#93d9f8] p-8 rounded-3xl h-full">
@@ -57,8 +60,16 @@ export default function RegisterProductForm(props) {
               }}
             />
           </Form.Field>
-          <div className="text-xl font-medium ">{status}</div>
+          
         </Form>
+      </div>
+      <div className="!fixed !top-6 !left-6">
+        {!!status && (
+          <Message info>
+            <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+            <p className="!text-xl">{status.split(":")[1]}</p>
+          </Message>
+        )}
       </div>
     </div>
   );

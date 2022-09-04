@@ -1,6 +1,7 @@
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
 
+
 import AddToOrg from "./AddToOrg";
 import CreateOrg from "./CreateOrg";
 import Events from "./Events";
@@ -18,7 +19,7 @@ export default function Main(props) {
         </div>
       </div>
       <div className="flex">
-        <Events maxHeight={"100%"}/>
+        <Events maxHeight={"100%"} />
       </div>
     </div>
   );

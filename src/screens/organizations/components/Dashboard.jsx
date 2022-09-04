@@ -15,9 +15,7 @@ const Dashboard = (props) => {
 
   const [currentAccountAddress, setCurrentAccountAddress] = useState(null);
   const accountPair = currentAccountAddress && keyringState === "READY" && keyring.getPair(currentAccountAddress);
-  if (accountPair) {
-    console.log("address Account Pair: " + accountPair.address);
-  }
+
   if (apiState === "ERROR") return <Message err={apiError} />;
   else if (apiState !== "READY") return <Loader text={"Connecting to Substrate"} />;
 

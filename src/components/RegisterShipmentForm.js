@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Message } from "semantic-ui-react";
 
 import { hexToString, u8aToString } from "@polkadot/util";
 import { useSubstrateState } from "../substrate-lib";
@@ -60,7 +60,9 @@ function RegisterShipmentFormComponent(props) {
   }, [api.query.palletDid, api.registry, organization]);
 
   const handleChange = (_, data) => setState({ ...state, [data.state]: data.value });
-
+  useEffect(() => {
+    if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
+  }, [status]);
   return (
     <div className="bg-[#abcf7d] p-8 rounded-3xl h-full">
       <h1 className="font-bold text-2xl">Register a Shipment</h1>
@@ -135,9 +137,14 @@ function RegisterShipmentFormComponent(props) {
               }}
             />
           </Form.Field>
-          <div className="text-xl font-medium ">{status}</div>
         </Form>
       </div>
+      {!!status && (
+        <Message info>
+          <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+          <p className="!text-xl">{status.split(":")[1]}</p>
+        </Message>
+      )}
     </div>
   );
 }

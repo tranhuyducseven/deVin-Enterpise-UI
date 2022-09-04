@@ -24,7 +24,9 @@ function Main(props) {
   }));
 
   const initialAddress = keyringOptions.length > 0 ? keyringOptions[0].value : "";
-  setCurrentAccountAddress(initialAddress);
+  useEffect(() => {
+    setCurrentAccountAddress(initialAddress);
+  }, []);
 
   // Set the initial address
   useEffect(() => {
