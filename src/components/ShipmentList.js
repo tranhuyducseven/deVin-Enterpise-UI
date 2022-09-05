@@ -44,7 +44,7 @@ export default function Main(props) {
   const handlePaginationChange = (_, data) => {
     setActivePage(data.activePage);
   };
-  const totalPages = Math.ceil(products.length / NUMBER_OF_RENDERED_ITEMS);
+  const totalPages = Math.ceil(shipments.length / NUMBER_OF_RENDERED_ITEMS);
 
   return (
     <div>

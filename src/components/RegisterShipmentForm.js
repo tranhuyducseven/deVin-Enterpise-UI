@@ -54,8 +54,6 @@ function RegisterShipmentFormComponent(props) {
       const attrHash = api.registry.createType("(AccountId, Text, u64)", [organization, "Org", nonce.subn(1)]).hash;
       const orgAttr = await api.query.palletDid.attributeOf([organization, attrHash]);
       setState((state) => ({ ...state, owner: u8aToString(orgAttr.value) }));
-      
-
     }
 
     setOwner();
@@ -126,7 +124,7 @@ function RegisterShipmentFormComponent(props) {
                 callable: "registerShipment",
                 inputParams: [
                   state.shipmentId,
-                  state.owner,
+                  organization,
                   [state.productId1 || "", state.productId2 || ""].join(","),
                 ],
                 paramFields: paramFields,
@@ -136,12 +134,14 @@ function RegisterShipmentFormComponent(props) {
           </Form.Field>
         </Form>
       </div>
-      {!!status && (
-        <Message info>
-          <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
-          <p className="!text-xl">{status.split(":")[1]}</p>
-        </Message>
-      )}
+      <div className="!fixed !top-6 !left-6">
+        {!!status && (
+          <Message info>
+            <Message.Header className="!text-2xl">{status.split(":")[0]}</Message.Header>
+            <p className="!text-xl">{status.split(":")[1]}</p>
+          </Message>
+        )}
+      </div>
     </div>
   );
 }

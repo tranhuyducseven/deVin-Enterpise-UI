@@ -17,7 +17,7 @@ function ShipmentDetailsComponent(props) {
     let unsubscribe;
 
     async function shipment(shipmentId) {
-      await api.query.palletTracking.shipments(shipmentId, async (data) => {
+      await api.query.tracking.shipments(shipmentId, async (data) => {
         if (!data || !data.value || !data.value.owner) {
           return;
         }
@@ -39,13 +39,13 @@ function ShipmentDetailsComponent(props) {
       setShipment(null);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.palletDid, api.query.palletTracking, api.registry, shipmentId]);
+  }, [api.query.palletDid, api.query.tracking, api.registry, shipmentId]);
 
   useEffect(() => {
     let unsubscribe;
 
     async function eventsOfShipment(shipmentId) {
-      await api.query.palletTracking.eventsOfShipment(shipmentId, (data) =>
+      await api.query.tracking.eventsOfShipment(shipmentId, (data) =>
         setEventIndices(data ? data.map((x) => x.toNumber()) : [])
       );
     }
@@ -56,13 +56,13 @@ function ShipmentDetailsComponent(props) {
       setEventIndices([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.palletTracking, shipmentId]);
+  }, [api.query.tracking, shipmentId]);
 
   useEffect(() => {
     let unsubscribe;
 
     async function allEvents(eventIndices) {
-      const futures = eventIndices.map((idx) => api.query.palletTracking.allEvents(idx));
+      const futures = eventIndices.map((idx) => api.query.tracking.allEvents(idx));
       Promise.all(futures)
         .then((data) => {
           if (data) {
@@ -81,7 +81,7 @@ function ShipmentDetailsComponent(props) {
       setEvents([]);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.palletTracking, eventIndices]);
+  }, [api.query.tracking, eventIndices]);
 
   useEffect(() => {
     let unsubscribe;

@@ -31,7 +31,7 @@ export default function Main (props) {
       setStatus={setStatus}
       style={{ display: shipment.status.isPending ? 'inline-block' : 'none' }}
       attrs={{
-        palletRpc: 'palletTracking',
+        palletRpc: 'tracking',
         callable: 'trackShipment',
         inputParams: [hexToString(shipment.id.toString()), 'Pickup', Date.now().toString(), null, null],
         paramFields: [{ optional: false }, { optional: false }, { optional: false }, { optional: true }, { optional: true }]
@@ -84,7 +84,7 @@ export default function Main (props) {
           type='SIGNED-TX'
           setStatus={setStatus}
           attrs={{
-            palletRpc: 'palletTracking',
+            palletRpc: 'tracking',
             callable: 'trackShipment',
             inputParams: [shipment.id, 'Scan', Date.now(),
               (state.latitude !== 0.0 && state.longitude !== 0.0 ? { latitude: state.latitude, longitude: state.longitude } : null),
@@ -101,7 +101,7 @@ export default function Main (props) {
           type='SIGNED-TX'
           setStatus={setStatus}
           attrs={{
-            palletRpc: 'palletTracking',
+            palletRpc: 'tracking',
             callable: 'trackShipment',
             inputParams: [shipment.id, 'Deliver', Date.now(), null, null],
             paramFields: [{ optional: false }, { optional: false }, { optional: false }, { optional: true }, { optional: true }]
