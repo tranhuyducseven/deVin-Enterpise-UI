@@ -1,6 +1,6 @@
 import { hexToString, u8aToString } from "@polkadot/util";
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Header, Icon, List, Segment, Step } from "semantic-ui-react";
+import { Icon, List, Step } from "semantic-ui-react";
 import { useSubstrateState } from "../substrate-lib";
 
 import ShipmentOperations from "./ShipmentOperations";
@@ -93,14 +93,16 @@ function ShipmentDetailsComponent(props) {
           if (data) {
             const products = data.map((p) => {
               const product = p.value;
-              const descProp = product.props
-                ? product.props.value.find((prop) => hexToString(prop.name.toString()) === "desc")
-                : { name: "", value: "" };
+              let descProp = { name: "", value: "" };
+              if (product.props) {
+                descProp = product.props.value.find((prop) => hexToString(prop.name.toString()) === "desc");
+              }
               return {
-                id: hexToString(product.id.toString()),
+                id: product.id && hexToString(product.id.toString()),
                 desc: hexToString(descProp.value.toString()),
               };
             });
+           
             setProducts(products);
           } else {
             setProducts([]);
@@ -117,99 +119,96 @@ function ShipmentDetailsComponent(props) {
     }
   }, [api.query.products, shipment]);
 
-  return shipment != null ? (
-    <Container style={{ marginTop: "2em" }}>
-      <Header as="h2">Shipment {shipmentId}</Header>
-      <Segment>
-        <Grid columns="2" rows="2">
-          <Grid.Row>
-            <Grid.Column>
-              <Header as="h4" floated="left">
-                Owner:{" "}
-              </Header>
-              <span style={{ fontSize: "0.8em" }}>{shipment.owner.toString()}</span>
-            </Grid.Column>
-            <Grid.Column>
-              <Header as="h4" floated="left">
-                Registered:
-              </Header>
-              <span>{new Date(shipment.registered.toNumber()).toLocaleString()}</span>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Header as="h4" floated="left">
-                Status:{" "}
-              </Header>
-              <span>{shipment.status.toString()}</span>
-            </Grid.Column>
-            <Grid.Column>
-              <Header as="h4" floated="left">
-                Delivered:
-              </Header>
-              <span>
-                {shipment.delivered.value.toString().length > 0
-                  ? new Date(shipment.delivered.value.toNumber()).toLocaleString()
-                  : ""}
-              </span>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-      <Grid container columns={3} style={{ marginTop: "1em" }}>
-        <Grid.Column width={6}>
-          <Header as="h3">Shipping Events</Header>
-          {events ? (
-            <Step.Group vertical size="small">
-              {" "}
-              {events.map((event, idx) => {
-                const eventType = event.event_type.toString();
-                return (
-                  <Step key={idx}>
-                    <Icon
-                      name={
-                        eventType === "ShipmentRegistration"
-                          ? "tasks"
-                          : eventType === "ShipmentPickup"
-                          ? "truck"
-                          : eventType === "ShipmentScan"
-                          ? "barcode"
-                          : "home"
-                      }
-                    />
-                    <Step.Content>
-                      <Step.Title>{event.event_type.toString().substring(8)}</Step.Title>
-                      <Step.Description>{new Date(event.timestamp.toNumber()).toLocaleString()}</Step.Description>
-                    </Step.Content>
-                  </Step>
-                );
-              })}{" "}
-            </Step.Group>
-          ) : (
-            <div>No event found</div>
-          )}
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <Header as="h3">Products</Header>
-          {products ? (
-            <List>
-              {" "}
-              {products.map((product, idx) => (
-                <List.Item key={idx} header={product.id} description={product.desc} />
-              ))}{" "}
-            </List>
-          ) : (
-            <div>No product found</div>
-          )}
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Header as="h3">Shipping Operations</Header>
-          <ShipmentOperations accountPair={accountPair} shipment={shipment} />
-        </Grid.Column>
-      </Grid>
-    </Container>
-  ) : (
-    <div></div>
+  return (
+    !!shipment && (
+      <div className="bg-white p-4 rounded-3xl h-full">
+        <div className="shipment-details">
+          <h1 className="font-bold text-2xl">
+            Shipment: <span className="text-red-800">{shipmentId}</span>
+          </h1>
+          <div className="info grid grid-cols-2 p-4 border-[1px] border-black rounded-lg">
+            <div className="01">
+              <div>
+                <span className="font-bold">Owner: </span>
+                <span>{shipment.owner.toString()}</span>
+              </div>
+              <div>
+                <span className="font-bold">Status: </span>
+                <span>{shipment.status.toString()}</span>
+              </div>
+            </div>
+            <div className="02">
+              <div>
+                <span className="font-bold">Registered: </span>
+                <span>{new Date(shipment.registered.toNumber()).toLocaleString()}</span>
+              </div>
+              <div>
+                <span className="font-bold">Delivered: </span>
+                <span>
+                  {shipment.delivered.value.toString().length > 0
+                    ? new Date(shipment.delivered.value.toNumber()).toLocaleString()
+                    : ""}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="events grid grid-cols-3 mt-4 border-[1px] border-black rounded-lg">
+            <div className="01">
+              <h1 className="font-bold text-2xl">Shipping Events</h1>
+              <div className="event">
+                {events ? (
+                  <div vertical size="small">
+                    {events.map((event, idx) => {
+                      const eventType = event.event_type.toString();
+                      return (
+                        <Step key={idx}>
+                          <Icon
+                            name={
+                              eventType === "ShipmentRegistration"
+                                ? "tasks"
+                                : eventType === "ShipmentPickup"
+                                ? "truck"
+                                : eventType === "ShipmentScan"
+                                ? "barcode"
+                                : "home"
+                            }
+                          />
+                          <Step.Content>
+                            <Step.Title>{event.event_type.toString().substring(8)}</Step.Title>
+                            <Step.Description>{new Date(event.timestamp.toNumber()).toLocaleString()}</Step.Description>
+                          </Step.Content>
+                        </Step>
+                      );
+                    })}{" "}
+                  </div>
+                ) : (
+                  <div>No event found</div>
+                )}
+              </div>
+            </div>
+            <div className="02">
+              <h1 className="font-bold text-2xl">Products</h1>
+              <div>
+                {products ? (
+                  <List>
+                    {" "}
+                    {products.map((product, idx) => (
+                      <List.Item key={idx} header={product.id} description={product.desc} />
+                    ))}{" "}
+                  </List>
+                ) : (
+                  <div>No product found</div>
+                )}
+              </div>
+            </div>
+            <div className="03">
+              <h1 className="font-bold text-2xl">Shipping Operations</h1>
+              <ShipmentOperations accountPair={accountPair} shipment={shipment} />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   );
 }
 

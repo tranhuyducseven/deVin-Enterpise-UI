@@ -23,17 +23,10 @@ export default function Main(props) {
             setSelectedShipment={setSelectedShipment}
           />
         </div>
-        <div className="grow">
-          <Events />
-        </div>
       </div>
 
-      <div className="shipments-details mt-4 bg-white">
-        {selectedShipment ? (
-          <div className="mt-4">
-            <ShipmentDetails accountPair={accountPair} shipmentId={selectedShipment} />
-          </div>
-        ) : null}
+      <div className="shipments-details bg-white">
+        {selectedShipment ? <ShipmentDetails accountPair={accountPair} shipmentId={selectedShipment} /> : null}
       </div>
     </div>
   );

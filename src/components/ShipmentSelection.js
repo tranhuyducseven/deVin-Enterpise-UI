@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Card, List, Message } from 'semantic-ui-react';
-import { useSubstrateState } from '../substrate-lib';
-import { hexToString } from '@polkadot/util';
+import { hexToString } from "@polkadot/util";
+import React, { useEffect, useState } from "react";
+import { List, Message } from "semantic-ui-react";
+import { useSubstrateState } from "../substrate-lib";
 
-export default function Main (props) {
+export default function Main(props) {
   const { api } = useSubstrateState();
   const { organization, setSelectedShipment } = props;
   const [shipments, setShipments] = useState([]);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState("");
 
   useEffect(() => {
     let unsub = null;
 
-    async function shipments (organization) {
-      unsub = await api.query.tracking.shipmentsOfOrganization(organization, data => {
+    async function shipments(organization) {
+      unsub = await api.query.tracking.shipmentsOfOrganization(organization, (data) => {
         setShipments(data);
-        setSelectedShipment('');
-        setSelected('');
+        setSelectedShipment("");
+        setSelected("");
       });
     }
 
@@ -24,8 +24,8 @@ export default function Main (props) {
       shipments(organization);
     } else {
       setShipments([]);
-      setSelectedShipment('');
-      setSelected('');
+      setSelectedShipment("");
+      setSelected("");
     }
 
     return () => unsub && unsub();
@@ -38,23 +38,37 @@ export default function Main (props) {
   };
 
   if (!shipments || shipments.length === 0) {
-    return <Message warning>
-      <Message.Header>No shipment registered for your organisation.</Message.Header>
-    </Message>;
+    return (
+      <Message warning>
+        <Message.Header>No shipment registered for your organisation.</Message.Header>
+      </Message>
+    );
   }
 
-  return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }} header = 'Select a Shipment' />
-    <Card.Content>
-      <Card.Description>{ shipments
-        ? <List selection>
-          { shipments.map((shipment, idx) => {
-            const shipmentId = hexToString(shipment.toString());
-            return <List.Item key={idx} active={selected === shipmentId} header={shipmentId}
-              onClick={handleSelectionClick} data={idx}/>;
-          }) }</List>
-        : <div>No shipment found</div>
-      }</Card.Description>
-    </Card.Content>
-  </Card>;
+  return (
+    <div className="bg-white p-4 rounded-3xl h-full border-2 border-black">
+      <h1 className="font-bold text-2xl">List of products</h1>
+      <div className="create-product-form mt-4">
+        {shipments ? (
+          <List selection>
+            {shipments.map((shipment, idx) => {
+              const shipmentId = hexToString(shipment.toString());
+              return (
+                <List.Item
+                  key={idx}
+                  active={selected === shipmentId}
+                  header={shipmentId}
+                  onClick={handleSelectionClick}
+                  data={idx}
+                  className = "!text-blue"
+                />
+              );
+            })}
+          </List>
+        ) : (
+          <div>No shipment found</div>
+        )}
+      </div>
+    </div>
+  );
 }

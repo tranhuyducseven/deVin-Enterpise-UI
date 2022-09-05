@@ -19,7 +19,7 @@ export default function Main(props) {
           <RegisterShipmentForm accountPair={accountPair} organization={selectedOrganization} />
         </div>
         <div className="grow">
-          <Events maxHeight={"100%"} small />
+          <Events maxHeight={"520px"} small />
         </div>
       </div>
 

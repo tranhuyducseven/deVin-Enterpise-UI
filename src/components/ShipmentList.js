@@ -1,9 +1,9 @@
 import { u8aToString } from "@polkadot/util";
 import React, { useEffect, useState } from "react";
-import { Message, Pagination, Table } from "semantic-ui-react";
+import { Icon, Message, Pagination, Table } from "semantic-ui-react";
 
 import { useSubstrateState } from "../substrate-lib";
-const NUMBER_OF_RENDERED_ITEMS = 4;
+const NUMBER_OF_RENDERED_ITEMS = 1;
 
 export default function Main(props) {
   const { organization } = props;
