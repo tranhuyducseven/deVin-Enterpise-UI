@@ -23,6 +23,9 @@ export default function Main(props) {
             setSelectedShipment={setSelectedShipment}
           />
         </div>
+        <div className="grow">
+          <Events small />
+        </div>
       </div>
 
       <div className="shipments-details bg-white">

@@ -276,7 +276,7 @@ a {
 
 /* shipment list */
 .ui.list > .item .header {
-  color: #135cf1 !important;
+  color: #e23434 !important;
   font-size: 1.5rem !important; /* 18px */
   line-height: 2rem !important; /* 28px */
   font-style: italic;

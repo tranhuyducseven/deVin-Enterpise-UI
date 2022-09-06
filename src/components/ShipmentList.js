@@ -71,7 +71,7 @@ export default function Main(props) {
                   <Table.Cell className="!p-4 hover:border-[#ffdd50]">{shipment.status.toString()}</Table.Cell>
                   <Table.Cell className="!p-4 hover:border-[#ffdd50]">
                     {products.map((p) => {
-                      return <div key={`${id}-${p}`}>{p}</div>;
+                      return <span className="p-2" key={`${id}-${p}`}>{p}</span>;
                     })}
                   </Table.Cell>
                 </Table.Row>

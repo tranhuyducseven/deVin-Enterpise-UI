@@ -60,7 +60,6 @@ export default function Main(props) {
                   header={shipmentId}
                   onClick={handleSelectionClick}
                   data={idx}
-                  className = "!text-blue"
                 />
               );
             })}
