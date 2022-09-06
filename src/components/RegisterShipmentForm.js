@@ -63,7 +63,6 @@ function RegisterShipmentFormComponent(props) {
   useEffect(() => {
     if (status && status.split(":")[0].includes("Finalized")) setTimeout(() => setStatus(null), 5000);
   }, [status]);
-  console.log("organization: " + state.owner);
 
   return (
     <div className="bg-[#abcf7d] p-8 rounded-3xl h-full">

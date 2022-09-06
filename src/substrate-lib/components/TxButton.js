@@ -15,6 +15,7 @@ function TxButton({
   style,
   type = "QUERY",
   txOnClickHandler = null,
+  className,
 }) {
   // Hooks
   const { api, currentAccount } = useSubstrateState();
@@ -22,7 +23,6 @@ function TxButton({
   const [sudoKey, setSudoKey] = useState(null);
 
   const { palletRpc, callable, inputParams, paramFields } = attrs;
- 
 
   const isQuery = () => type === "QUERY";
   const isSudo = () => type === "SUDO-TX";
@@ -237,7 +237,7 @@ function TxButton({
         ((isSudo() || isUncheckedSudo() || isSigned()) && !currentAccount) ||
         ((isSudo() || isUncheckedSudo()) && !isSudoer(currentAccount))
       }
-      className="default-button"
+      className={`default-button ${className && className.includes("shipment-operation") ? className : ""}`}
     >
       {label}
     </Button>

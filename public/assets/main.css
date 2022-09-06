@@ -275,10 +275,55 @@ a {
 }
 
 /* shipment list */
+.ui.list {
+  padding-left: 12px !important;
+}
+.ui.selection.list .list > .item.active,
+.ui.selection.list > .item.active {
+  background-color: #f8dbdb !important;
+}
 .ui.list > .item .header {
-  color: #e23434 !important;
-  font-size: 1.5rem !important; /* 18px */
-  line-height: 2rem !important; /* 28px */
+  color: #b91c1c !important;
+  font-size: 1.25rem !important; /* 18px */
+  line-height: 1.5rem !important; /*28px*/
   font-style: italic;
   text-decoration: underline;
+}
+
+.ui.basic.black.button.shipment-operation {
+  font-size: 1rem !important; /* 18px */
+  line-height: 1.25rem !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+.ui.basic.black.button.shipment-operation.pickup {
+  border: 1px solid #b01c1c !important;
+  position: absolute !important;
+  top: 10px !important;
+  left: 220px !important;
+}
+
+.ui.basic.black.button.shipment-operation:hover {
+  box-shadow: none !important;
+  color: #333 !important;
+}
+.ui.basic.black.button.shipment-operation.pickup {
+  border: 1px solid #b01c1c !important;
+}
+.ui.basic.black.button.shipment-operation.pickup:hover {
+  background-color: #f8dbdb !important;
+}
+
+.ui.basic.black.button.shipment-operation.scan {
+  border: 1px solid #2284c1 !important;
+  margin-right: 10px!important;
+}
+.ui.basic.black.button.shipment-operation.scan:hover {
+  background-color: #e4fffd !important;
+}
+.ui.basic.black.button.shipment-operation.deliver {
+  border: 1px solid #3e663d !important;
+}
+.ui.basic.black.button.shipment-operation.deliver:hover {
+  background-color: #ebf8db !important;
 }

@@ -47,7 +47,7 @@ export default function Main(props) {
 
   return (
     <div className="bg-white p-4 rounded-3xl h-full border-2 border-black">
-      <h1 className="font-bold text-2xl">List of products</h1>
+      <h1 className="font-bold text-2xl">List of Shipments</h1>
       <div className="create-product-form mt-4">
         {shipments ? (
           <List selection>
